@@ -24,7 +24,7 @@ transtype=sale
 _Advanced Sale_ = ->sale->simple()
 
 ===
-### Creating an Authorization and Capture = ->authorization,->capture
+### Creating an Authorization and Capture = ->authorization,->capture
 ===
 transtype=auth
 _Simple Authorization_   = ->authorization->simple()
@@ -52,7 +52,7 @@ transtype=void
 _Advanced Void_ = ->void->advanced()
 
 ===
-### Airline Passenger Sale = ->airline
+### Airline Passenger Sale = ->airline
 ===
 transtype=passengersale
 _Passenger Sale_ = ->airline->passengerSale()
@@ -100,7 +100,7 @@ transtype=sale
 _Advanced Fiserv Sale_ = `???`
 
 ===
-### Chargeback Entry = ->chargeback
+### Chargeback Entry = ->chargeback
 ===
 transtype=chargeback
 _Marking a successful transaction as a Chargeback_ = ->chargeback->markTransaction()
@@ -140,7 +140,7 @@ _Adding Payment Types to a Customer_ = ->vault->addPaymentType()
 transtype=updatecustomer
 _Update Payment Type_                = ->vault->updatePaymentType()
 transtype=updatecustomer
-_Delete Payment Type_                = ->vault->deletePaymentType()
+_Delete Payment Type_                = ->vault->deletePaymentType()
 transtype=deletecustomer
 _Delete Data Vault Customer_         = ->vault->deleteCustomer()
 transtype=getcustomer

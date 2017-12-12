@@ -9,7 +9,7 @@ _Advanced Sale_
     transtype=sale&mkey=KewO4GI%2B64I8Vg6xCCuqvAkuAkq9cbJH&amount=57.85&cardnum=4111111111111111&cardexp=1010&cvv=999&skunumber_1=5558779&description_1=menssweaterblue&amount_1=50.00&quantity_1=1&tax=2.85&shipamount=5.00&firstname=John&lastname=Smith&address1=888+test+address&city=Los+Angeles&country=US&state=CA&phone=222-444-2938&shipfirstname=John&shiplastname=Smith&shipaddress1=888+test+address&shipcity=Los+Angeles&shipstate=CA&shipphone=2224442938
 
 ===
-### Creating an Authorization and Capture
+### Creating an Authorization and Capture
 ===
 
 _Simple Authorization_
@@ -45,7 +45,7 @@ _Advanced Void_
     transtype=void&mkey=KewO4GI%2B64I8Vg6xCCuqvAkuAkq9cbJH&transid=12345678&sendtransreceipttoemails=John.Smith@email.com
 
 ===
-### Airline Passenger Sale
+### Airline Passenger Sale
 ===
 
 _Passenger Sale_
@@ -107,7 +107,7 @@ _Advanced Fiserv Sale_
     transtype=sale&mkey=KewO4GI%2B64I8Vg6xCCuqvAkuAkq9cbJH&amount=57.85&cardnum=4000123456789002&cardexp=1010&skunumber_1=5558779&description_1=menssweaterblue&amount_1=50.00&quantity_1=1&tax=2.85&shipamount=5.00&firstname=John&lastname=Smith&address1=888+test+address&city=Los+Angeles&country=US&state=CA&phone=222-444-2938&shipfirstname=John&shiplastname=Smith&shipaddress1=888+test+address&shipcity=Los+Angeles&shipstate=CA&shipphone=2224442938
 
 ===
-### Chargeback Entry
+### Chargeback Entry
 ===
 
 _Marking a successful transaction as a Chargeback_
@@ -160,7 +160,7 @@ _Adding Payment Types to a Customer_
 _Update Payment Type_
     mkey=KewO4GI%2B64I8Vg6xCCuqvAkuAkq9cbJH&transtype=updatecustomer&token=B31388EA20ABF2776C93&operationtype_1=updatepaytype&token_1=0HEUX6NFECQG8QCQ&cardnum_1=4111111111111112&operationtype_2=updatepaytype&token_2=4K8NSZSGGPMHGEW4&cardexp_2=0421
 
-_Delete Payment Type_
+_Delete Payment Type_
     transtype=updatecustomer `???`
 
 _Delete Data Vault Customer_
