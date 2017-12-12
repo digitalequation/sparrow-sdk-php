@@ -17,9 +17,9 @@ use SparrowSDK\Exceptions\SDKUnexpectedResponseException;
  */
 class APIRequest
 {
-    protected $default_opts = [                       // Basic support for extended opts
-        'form_data' => false,                         // sets content type to multipart/form-data if true
-        'params'    => []                             // params to be passed in request
+    protected $default_opts = [ // Basic support for extended opts
+        'form_data' => false,   // sets content type to multipart/form-data if true
+        'params'    => []       // params to be passed in request
     ];
 
     protected $origin;
@@ -102,17 +102,23 @@ class APIRequest
                 break;
             case 'POST':
             case 'PUT':
-                if ($this->opts['form_data'] === true) {
-                    curl_setopt($ch, CURLOPT_POSTFIELDS, $this->opts['params']);
+                $json_data = json_encode($this->opts['params']);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $json_data);
 
-                    array_push($curl_headers, 'Content-Type: multipart/form-data');
-                } else {
-                    $json_data = json_encode($this->opts['params']);
-                    curl_setopt($ch, CURLOPT_POSTFIELDS, $json_data);
+                array_push($curl_headers, 'Content-Type: application/x-www-form-urlencoded');
+                array_push($curl_headers, 'Content-Length: ' . strlen($json_data));
 
-                    array_push($curl_headers, 'Content-Type: application/json');
-                    array_push($curl_headers, 'Content-Length: ' . strlen($json_data));
-                }
+                // if ($this->opts['form_data'] === true) {
+                //     curl_setopt($ch, CURLOPT_POSTFIELDS, $this->opts['params']);
+
+                //     array_push($curl_headers, 'Content-Type: multipart/form-data');
+                // } else {
+                //     $json_data = json_encode($this->opts['params']);
+                //     curl_setopt($ch, CURLOPT_POSTFIELDS, $json_data);
+
+                //     array_push($curl_headers, 'Content-Type: application/json');
+                //     array_push($curl_headers, 'Content-Length: ' . strlen($json_data));
+                // }
 
                 break;
         }
@@ -127,7 +133,7 @@ class APIRequest
         curl_setopt($ch, CURLOPT_HEADER, false);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-        $curl_data = curl_exec($ch);
+        $curl_data   = curl_exec($ch);
         $curl_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
         curl_close($ch);
@@ -154,7 +160,8 @@ class APIRequest
     {
         if ($this->origin->debug_return != null &&
             array_key_exists('data', $this->origin->debug_return) &&
-            array_key_exists('status', $this->origin->debug_return)) {
+            array_key_exists('status', $this->origin->debug_return)
+        ) {
 
             $curl_data   = $this->origin->debug_return['data'];
             $curl_status = $this->origin->debug_return['status'];
@@ -165,17 +172,13 @@ class APIRequest
             $curl_status = $call['status'];
         }
 
-        if ($this->method === 'DELETE') {
-            $expected_http_status = 204;
-        } else {
-            $expected_http_status = 200;
-        }
+        $expected_http_status = $this->method === 'DELETE' ? 204 : 200;
 
         if ($curl_status !== $expected_http_status) {
             throw new SDKErrorResponseException($curl_status . ' - ' . $curl_data);
         }
 
-        if ($this->method === 'DELETE') {           // if DELETE request, expect no output
+        if ($this->method === 'DELETE') { // if DELETE request, expect no output
             return true;
         }
 
