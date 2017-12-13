@@ -9,7 +9,6 @@
 - chargeback
 - balance
 - customField
-- verification
 - vault
 - paymentPlan
 - invoice
@@ -59,15 +58,15 @@ transtype=passengersale
 _Passenger Sale_ = ->airline->passengerSale()
 
 ===
-### Military Star Card = `???`
+### Military Star Card
 ===
 transtype=sale
-_Simple Star Card_   = `???`
+_Simple Star Card_
 transtype=sale
-_Advanced Star Card_ = `???`
+_Advanced Star Card_
 
 ===
-### ACH and eCheck = `???`
+### ACH and eCheck
 ===
 transtype=sale/refund/credit
 _Simple ACH_      = `???`
@@ -93,12 +92,12 @@ transtype=credit
 _eWallet Simple Credit_ = ->ewallet->simpleCredit()
 
 ===
-### Fiserv = `???`
+### Fiserv (same as Sale?)
 ===
 transtype=sale
-_Fiserv Simple Sale_   = `???`
+_Fiserv Simple Sale_
 transtype=sale
-_Advanced Fiserv Sale_ = `???`
+_Advanced Fiserv Sale_
 
 ===
 ### Chargeback Entry = ->chargeback
@@ -119,9 +118,9 @@ transtype=decrypt
 _Decrypting Custom Fields_ = ->customField->decrypt()
 
 ===
-### Credit Card Verification = ->verification
+### Credit Card Verification = ->authorization
 ===
-_Account Verification_ = ->verification->verifyAccount()
+_Account Verification_ = ->authorization->verifyAccount()
 
 ===
 ### Data Vault = ->vault
@@ -150,15 +149,15 @@ transtype=getcustomer
 _Retrieve Payment Type_              = ->vault->getPaymentType()
 transtype=decrypt
 _Decrypt Payment Type_               = ->vault->decryptPaymentType()
-    _Credit Card_                    = `???`
-    _ACH_                            = `???`
-    _eCheck_                         = `???`
-    _Star Card_                      = `???`
-    _eWallet_                        = `???`
-_Tokenized Payments_                 = `???`
+    _Credit Card_
+    _ACH_
+    _eCheck_
+    _Star Card_
+    _eWallet_
+_Tokenized Payments_
 
 ===
-### Creating Custom Payment Plans = ->paymentPlan
+### Creating Custom Payment Plans = ->paymentPlan `???`
 ===
 transtype=addplan
 _Creating a Payment Plan_                = ->paymentPlan->add()
@@ -199,6 +198,6 @@ _Cancel Invoice_                        = ->invoice->cancel()
 transtype=cancelinvoicebycustomer
 _Cancel Invoice by Customer_            = ->invoice->cancelByCustomer()
 transtype=payinvoice
-_Paying an Invoice with a Credit Card_  = ->invoice->payWithCreditCard() `???`
+_Paying an Invoice with a Credit Card_  = ->invoice->payWithCreditCard()
 transtype=payinvoice
-_Paying an Invoice with a Bank Account_ = ->invoice->payWithBankAccount() `???`
+_Paying an Invoice with a Bank Account_ = ->invoice->payWithBankAccount()

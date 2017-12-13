@@ -16,7 +16,6 @@ use SparrowSDK\Handlers\PaymentPlanHandler;
 use SparrowSDK\Handlers\RefundHandler;
 use SparrowSDK\Handlers\SaleHandler;
 use SparrowSDK\Handlers\VaultHandler;
-use SparrowSDK\Handlers\VerificationHandler;
 use SparrowSDK\Handlers\VoidHandler;
 
 /**
@@ -32,40 +31,38 @@ class SparrowClient
 
     protected $merchantKey = null;
 
-    public $sale;
-    public $authorization;
-    public $capture;
-    public $refund;
-    public $void;
     public $airline;
-    public $ewallet;
-    public $chargeback;
+    public $authorization;
     public $balance;
+    public $capture;
+    public $chargeback;
     public $customField;
-    public $verification;
-    public $vault;
-    public $paymentPlan;
+    public $ewallet;
     public $invoice;
+    public $paymentPlan;
+    public $refund;
+    public $sale;
+    public $vault;
+    public $void;
 
     /**
      * SparrowClient constructor
      */
     public function __construct()
     {
-        $this->sale          = new AirlineHandler($this);
+        $this->airline       = new AirlineHandler($this);
         $this->authorization = new AuthorizationHandler($this);
-        $this->capture       = new BalanceHandler($this);
-        $this->refund        = new CaptureHandler($this);
-        $this->void          = new ChargebackHandler($this);
-        $this->airline       = new CustomFieldHandler($this);
+        $this->balance       = new BalanceHandler($this);
+        $this->capture       = new CaptureHandler($this);
+        $this->chargeback    = new ChargebackHandler($this);
+        $this->customField   = new CustomFieldHandler($this);
         $this->ewallet       = new EwalletHandler($this);
-        $this->chargeback    = new InvoiceHandler($this);
-        $this->balance       = new PaymentPlanHandler($this);
-        $this->customField   = new RefundHandler($this);
-        $this->verification  = new SaleHandler($this);
+        $this->invoice       = new InvoiceHandler($this);
+        $this->paymentPlan   = new PaymentPlanHandler($this);
+        $this->refund        = new RefundHandler($this);
+        $this->sale          = new SaleHandler($this);
         $this->vault         = new VaultHandler($this);
-        $this->paymentPlan   = new VerificationHandler($this);
-        $this->invoice       = new VoidHandler($this);
+        $this->void          = new VoidHandler($this);
     }
 
     /**

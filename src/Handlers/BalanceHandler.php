@@ -9,6 +9,13 @@ class BalanceHandler extends MethodHandler
 {
     public function inquire($fields)
     {
+        $fields['transtype'] = 'balanceinquire';
+
+        $supports = [
+            'cardnum' => true,
+            'cardexp' => true
+        ];
+
         // TODO
     }
 }

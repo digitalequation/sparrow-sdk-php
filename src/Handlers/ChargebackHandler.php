@@ -9,6 +9,13 @@ class ChargebackHandler extends MethodHandler
 {
     public function markTransaction($fields)
     {
+        $fields['transtype'] = 'chargeback';
+
+        $supports = [
+            'transid' => true,
+            'reason'  => true
+        ];
+
         // TODO
     }
 }

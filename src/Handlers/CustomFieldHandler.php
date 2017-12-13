@@ -9,6 +9,13 @@ class CustomFieldHandler extends MethodHandler
 {
     public function decrypt($fields)
     {
+        $fields['transtype'] = 'decrypt';
+
+        $supports = [
+            'fieldname' => true,
+            'token'     => true
+        ];
+
         // TODO
     }
 }

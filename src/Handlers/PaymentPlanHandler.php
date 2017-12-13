@@ -9,22 +9,60 @@ class PaymentPlanHandler extends MethodHandler
 {
     public function add($fields)
     {
-        // TODO
+        $fields['transtype'] = 'addplan';
+
+        $supports = [
+            'planname'  => true,
+            'plandesc'  => true,
+            'startdate' => true,
+
+            'defaultachmkey'        => false,
+            'defaultcreditcardmkey' => false,
+            'defaultecheckmkey'     => false,
+            'defaultstartcardmkey'  => false,
+            'defaultewalletmkey'    => false
+        ];
+
+        // TODO -> REVISIT THIS! (documentation is very bad on this section)
     }
 
     public function update($fields)
     {
-        // TODO
+        $fields['transtype'] = 'updateplan';
+
+        $supports = [
+            'token' => true,
+
+            'planname'                 => false,
+            'plandesc'                 => false,
+            'startdate'                => false,
+            'defaultachmkey'           => false,
+            'defaultcreditcardmkey'    => false,
+            'defaultecheckmkey'        => false,
+            'defaultstartcardmkey'     => false,
+            'defaultewalletmkey'       => false,
+            'userecycling'             => false,
+            'notifyfailures'           => false,
+            'retrycount'               => false,
+            'retrytype'                => false,
+            'retryperiod'              => false,
+            'retrydayofweek'           => false,
+            'retryfirstdayofmonth'     => false,
+            'retryseconddayofmonth'    => false,
+            'autocreateclientaccounts' => false
+        ];
+
+        // TODO -> REVISIT THIS! (documentation is very bad on this section)
     }
 
     public function buildSequence($fields)
     {
-        // TODO
+        // TODO possibly not a function
     }
 
     public function notificationSettings($fields)
     {
-        // TODO
+        // TODO possibly not a function
     }
 
     public function addSequence($fields)

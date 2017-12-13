@@ -49,7 +49,7 @@ abstract class MethodHandler
         $mreq  = [];        // Missing required keys
 
         foreach ($supports as $sk => $sv) {
-            if ($sv === Client::REQUIRED_PARAM) {
+            if ($sv === true) {
                 array_push($sreq, $sk);
             }
             array_push($sall, $sk);
@@ -73,7 +73,7 @@ abstract class MethodHandler
         }
 
         if (count($unsup)) {
-            throw new SDKUnsupportedRequestException($unsup);
+            // throw new SDKUnsupportedRequestException($unsup);
         } elseif (count($mreq)) {
             throw new SDKIncompleteRequestException($mreq);
         } elseif (count($dupl)) {
