@@ -1,17 +1,18 @@
-->sale
-->authorization
-->capture
-->refund
-->void
-->airline
-->ewallet
-->chargeback
-->balance
-->customField
-->verification
-->vault
-->paymentPlan
-->invoice
+### Method handlers list:
+- sale
+- authorization
+- capture
+- refund
+- void
+- airline
+- ewallet
+- chargeback
+- balance
+- customField
+- verification
+- vault
+- paymentPlan
+- invoice
 
 
 

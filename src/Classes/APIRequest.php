@@ -3,9 +3,10 @@
 namespace SparrowSDK\Classes;
 
 use SparrowSDK\SparrowClient;
-use SparrowSDK\Exceptions\SDKInvalidArgException;
-use SparrowSDK\Exceptions\SDKErrorResponseException;
+use SparrowSDK\Exceptions\SDKAuthErrorException;
 use SparrowSDK\Exceptions\SDKBadJSONResponseException;
+use SparrowSDK\Exceptions\SDKErrorResponseException;
+use SparrowSDK\Exceptions\SDKInvalidArgException;
 use SparrowSDK\Exceptions\SDKUnexpectedResponseException;
 
 /**
@@ -17,6 +18,8 @@ use SparrowSDK\Exceptions\SDKUnexpectedResponseException;
  */
 class APIRequest
 {
+    public const ALLOWED_METHODS = ['POST'];
+
     protected $default_opts = [ // Basic support for extended opts
         'form_data' => false,   // sets content type to multipart/form-data if true
         'params'    => []       // params to be passed in request
@@ -40,17 +43,20 @@ class APIRequest
      * @throws SDKInvalidArgException if unsupported $method is provided.
      * @throws SDKInvalidArgException if $endpoint is non-string.
      * @throws SDKInvalidArgException if $opts param is not an array.
+     * @throws SDKAuthErrorException  if $origin->merchantKey is null (not set)
      */
     public function __construct(SparrowClient $origin, $endpoint, $method, $opts = [])
     {
         if (!is_string($method)) {
             throw new SDKInvalidArgException('`$method` must be a string');
-        } elseif (!in_array($method, ['GET', 'POST', 'PUT', 'DELETE'])) {
+        } elseif (!in_array($method, self::ALLOWED_METHODS)) {
             throw new SDKInvalidArgException('unsupported ' . $method . ' `$method`');
         } elseif (!is_string($endpoint)) {
             throw new SDKInvalidArgException('`$endpoint` must be a string');
         } elseif (!is_array($opts)) {
             throw new SDKInvalidArgException('`$opts` must be an array');
+        } elseif (is_null($this->origin->getMerchantKey())) {
+            throw new SDKAuthErrorException('client merchant key must be set');
         }
 
         $this->opts = $this->default_opts;
@@ -91,19 +97,21 @@ class APIRequest
 
         $curl_headers = [];
 
-        $call_url = SparrowClient::$apiBaseUri . $this->endpoint;
+        $call_url = SparrowClient::API_BASE_URI . $this->endpoint;
 
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $this->method);
 
-        switch ($this->method) { // Method-oriented parsing
-            case 'GET':
-                $call_url .= '?' . http_build_query($this->opts['params']);
+        // Attach origin client's merchant key to request parameters
+        $this->opts['params']['mkey'] = $this->origin->getMerchantKey();
 
-                break;
+        switch ($this->method) { // Method-oriented parsing
+            // case 'GET':
+            //     $call_url .= '?' . http_build_query($this->opts['params']);
+
+            //     break;
             case 'POST':
-            case 'PUT':
-                $json_data = json_encode($this->opts['params']);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $json_data);
+            // case 'PUT':
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $this->opts['params']);
 
                 array_push($curl_headers, 'Content-Type: application/x-www-form-urlencoded');
                 array_push($curl_headers, 'Content-Length: ' . strlen($json_data));
@@ -121,10 +129,6 @@ class APIRequest
                 // }
 
                 break;
-        }
-
-        if (is_string($this->origin->getCurrentToken())) {
-            array_push($curl_headers, 'Authorization: Bearer ' . $this->origin->getCurrentToken());
         }
 
         curl_setopt($ch, CURLOPT_HTTPHEADER, $curl_headers);
