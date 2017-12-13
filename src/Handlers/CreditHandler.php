@@ -5,42 +5,15 @@ namespace SparrowSDK\Handlers;
 use SparrowSDK\SparrowClient;
 use SparrowSDK\Classes\MethodHandler;
 
-class RefundHandler extends MethodHandler
+class CreditHandler extends MethodHandler
 {
-    public function simpleCard($fields)
-    {
-        $fields['transtype'] = 'refund';
-
-        $supports = [
-            'transid' => true,
-            'amount'  => true
-        ];
-
-        // TODO
-    }
-
-    public function advancedCard($fields)
-    {
-        $fields['transtype'] = 'refund';
-
-        $supports = [
-            'transid' => true,
-            'amount'  => true,
-
-            'sendtransreceipttobillemail' => false,
-            'sendtransreceipttoshipemail' => false,
-            'sendtransreceipttoemails'    => false
-
-            // 'opt_amount_type_#'  => false,
-            // 'opt_amount_value_#' => false
-        ];
-
-        // TODO
-    }
+    //
+    // TODO Check if there are also credit methods for Credit Card
+    //
 
     public function simpleAch($fields)
     {
-        $fields['transtype'] = 'refund';
+        $fields['transtype'] = 'credit';
 
         $supports = [
             'bankname'          => true,
@@ -58,7 +31,7 @@ class RefundHandler extends MethodHandler
 
     public function advancedAch($fields)
     {
-        $fields['transtype'] = 'refund';
+        $fields['transtype'] = 'credit';
 
         $supports = [
             'bankname'          => true,
@@ -114,7 +87,7 @@ class RefundHandler extends MethodHandler
 
     public function simpleEcheck($fields)
     {
-        $fields['transtype'] = 'refund';
+        $fields['transtype'] = 'credit';
 
         $supports = [
             'bankname'       => true,
@@ -138,7 +111,7 @@ class RefundHandler extends MethodHandler
 
     public function advancedEcheck($fields)
     {
-        $fields['transtype'] = 'refund';
+        $fields['transtype'] = 'credit';
 
         $supports = [
             'bankname'       => true,
@@ -180,6 +153,21 @@ class RefundHandler extends MethodHandler
             // 'opt_amount_type_#'       => false,
             // 'opt_amount_value_#'      => false,
             // 'opt_amount_percentage_#' => false
+        ];
+
+        // TODO
+    }
+
+    public function simpleEwallet($fields)
+    {
+        $fields['transtype'] = 'credit';
+
+        $supports = [
+            'ewalletaccount' => true,
+            'amount'         => true,
+
+            'ewallettype' => false,
+            'currency'    => false
         ];
 
         // TODO

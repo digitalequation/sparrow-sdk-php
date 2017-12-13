@@ -5,7 +5,7 @@
 - refund
 - void
 - airline
-- ewallet
+- credit
 - chargeback
 - balance
 - customField
@@ -19,9 +19,9 @@
 ### Creating a Sale = ->sale
 ===
 transtype=sale
-_Simple Sale_   = ->sale->simple()
+_Simple Sale_   = ->sale->simpleCard()
 transtype=sale
-_Advanced Sale_ = ->sale->simple()
+_Advanced Sale_ = ->sale->advancedCard()
 
 ===
 ### Creating an Authorization and Capture = ->authorization,->capture
@@ -39,9 +39,9 @@ _Advanced Capture_       = ->capture->advanced()
 ### Issuing a Refund = ->refund
 ===
 transtype=refund
-_Simple Refund_   = ->refund->simple()
+_Simple Refund_   = ->refund->simpleCard()
 transtype=refund
-_Advanced Refund_ = ->refund->advanced()
+_Advanced Refund_ = ->refund->advancedCard()
 
 ===
 ### Issuing a Void = ->void
@@ -58,46 +58,46 @@ transtype=passengersale
 _Passenger Sale_ = ->airline->passengerSale()
 
 ===
-### Military Star Card
+### Military Star Card = ->sale
 ===
 transtype=sale
-_Simple Star Card_
+_Simple Star Card_   = ->sale->simpleStarCard()
 transtype=sale
-_Advanced Star Card_
+_Advanced Star Card_ = ->sale->advancedStarCard()
 
 ===
-### ACH and eCheck
+### ACH and eCheck = ->sale,->refund,->credit
 ===
 transtype=sale/refund/credit
-_Simple ACH_      = `???`
+_Simple ACH_                     = ->sale->simpleAch(),->refund->simpleAch(),->credit->simpleAch()
     _ACH account type: Personal_
     _ACH account type: Business_
 transtype=sale/refund/credit
-_Advanced ACH_    = `???`
-    _ACH account type: Personal_
-    _ACH account type: Business_
-transtype=sale/refund
-_Simple eCheck_   = `???`
+_Advanced ACH_                   = ->sale->advancedAch(),->refund->advancedAch(),->credit->advancedAch()
     _ACH account type: Personal_
     _ACH account type: Business_
 transtype=sale/refund/credit
-_Advanced eCheck_ = `???`
+_Simple eCheck_                  = ->sale->simpleEcheck(),->refund->simpleEcheck(),->credit->simpleEcheck()
+    _ACH account type: Personal_
+    _ACH account type: Business_
+transtype=sale/refund/credit
+_Advanced eCheck_                = ->sale->advancedEcheck(),->refund->advancedEcheck(),->credit->advancedEcheck()
     _ACH account type: Personal_
     _ACH account type: Business_
 
 ===
-### eWallet = ->ewallet
+### eWallet = ->credit
 ===
 transtype=credit
-_eWallet Simple Credit_ = ->ewallet->simpleCredit()
+_eWallet Simple Credit_ = ->credit->simpleEwallet()
 
 ===
-### Fiserv (same as Sale?)
+### Fiserv (same as credit card sale? Maybe add an alias...) = ->sale
 ===
 transtype=sale
-_Fiserv Simple Sale_
+_Fiserv Simple Sale_   = ->sale->simpleCard()
 transtype=sale
-_Advanced Fiserv Sale_
+_Advanced Fiserv Sale_ = ->sale->advancedCard()
 
 ===
 ### Chargeback Entry = ->chargeback
