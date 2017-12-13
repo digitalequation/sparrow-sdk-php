@@ -2,7 +2,7 @@
 
 namespace SparrowSDK\Exceptions;
 
-class SDKBadJSONResponseException extends SDKBaseException
+class SDKBadJSONResponseException extends SDKException
 {
     private $baseMessage = 'JSON remote response is inconsistent or invalid';
 

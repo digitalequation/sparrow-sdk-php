@@ -9,6 +9,6 @@ class BalanceHandler extends MethodHandler
 {
     public function inquire($fields)
     {
-        // ...
+        // TODO
     }
 }

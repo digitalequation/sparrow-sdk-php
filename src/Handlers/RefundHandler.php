@@ -9,11 +9,11 @@ class RefundHandler extends MethodHandler
 {
     public function simple($fields)
     {
-        // ...
+        // TODO
     }
 
     public function advanced($fields)
     {
-        // ...
+        // TODO
     }
 }

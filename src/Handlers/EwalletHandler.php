@@ -9,6 +9,6 @@ class EwalletHandler extends MethodHandler
 {
     public function simpleCredit($fields)
     {
-        // ...
+        // TODO
     }
 }

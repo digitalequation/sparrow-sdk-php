@@ -9,6 +9,6 @@ class VerificationHandler extends MethodHandler
 {
     public function verifyAccount($fields)
     {
-        // ...
+        // TODO
     }
 }

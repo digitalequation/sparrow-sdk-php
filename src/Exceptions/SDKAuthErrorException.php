@@ -2,7 +2,7 @@
 
 namespace SparrowSDK\Exceptions;
 
-class SDKAuthErrorException extends SDKBaseException
+class SDKAuthErrorException extends SDKException
 {
     public function __construct($message = null)
     {

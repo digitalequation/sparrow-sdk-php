@@ -2,15 +2,15 @@
 
 namespace SparrowSDK\Exceptions;
 
-class SDKUnexpectedResponseException extends SDKException
+class SDKMissingArgException extends SDKException
 {
-    private $baseMessage = 'Got unexpected remote response';
+    private $baseMessage = 'Missing argument';
 
     public function __construct($message = null)
     {
         $message = is_null($message)
             ? $this->baseMessage
-            : $this->baseMessage . ' - ' . $message;
+            : $this->baseMessage . ' `' . $message . '`';
 
         parent::__construct($message);
     }

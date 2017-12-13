@@ -9,6 +9,6 @@ class AuthorizationHandler extends MethodHandler
 {
     public function simple($fields)
     {
-        // ...
+        // TODO
     }
 }

@@ -9,11 +9,11 @@ class SaleHandler extends MethodHandler
 {
     public function simple($fields)
     {
-        // ...
+        // TODO
     }
 
     public function advanced($fields)
     {
-        // ...
+        // TODO
     }
 }
