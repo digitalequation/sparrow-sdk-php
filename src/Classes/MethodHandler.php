@@ -15,6 +15,10 @@ use SparrowSDK\Exceptions\SDKDuplicateRequestException;
  */
 abstract class MethodHandler
 {
+    protected const GLOBAL_SUPPORTS = [
+        'transtype' => false
+    ];
+
     protected $origin; // Reference to originating SparrowClient instance
 
     public function __construct(SparrowClient $origin)
@@ -55,6 +59,8 @@ abstract class MethodHandler
      */
     protected function enforce($array, $supports)
     {
+        $supports += self::GLOBAL_SUPPORTS;
+
         $sall  = [];        // All supported keys
         $sreq  = [];        // Mandatory supported keys
 
@@ -89,7 +95,7 @@ abstract class MethodHandler
         }
 
         if (count($unsup)) {
-            // throw new SDKUnsupportedRequestException($unsup);
+            throw new SDKUnsupportedRequestException($unsup);
         } elseif (count($mreq)) {
             throw new SDKIncompleteRequestException($mreq);
         } elseif (count($dupl)) {

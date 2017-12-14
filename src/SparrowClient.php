@@ -45,6 +45,8 @@ class SparrowClient
     public $vault;
     public $void;
 
+    public $debugReturn = null;
+
     /**
      * SparrowClient constructor
      */

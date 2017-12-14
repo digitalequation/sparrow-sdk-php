@@ -4,7 +4,6 @@ namespace SparrowSDK\Classes;
 
 use SparrowSDK\SparrowClient;
 use SparrowSDK\Exceptions\SDKAuthErrorException;
-use SparrowSDK\Exceptions\SDKBadJSONResponseException;
 use SparrowSDK\Exceptions\SDKErrorResponseException;
 use SparrowSDK\Exceptions\SDKInvalidArgException;
 use SparrowSDK\Exceptions\SDKUnexpectedResponseException;
@@ -20,7 +19,7 @@ class APIRequest
 {
     public const ALLOWED_METHODS = ['POST'];
 
-    protected $default_opts = [ // Basic support for extended opts
+    protected $defaultOpts = [ // Basic support for extended opts
         'form_data' => false,   // sets content type to multipart/form-data if true
         'params'    => []       // params to be passed in request
     ];
@@ -55,11 +54,11 @@ class APIRequest
             throw new SDKInvalidArgException('`$endpoint` must be a string');
         } elseif (!is_array($opts)) {
             throw new SDKInvalidArgException('`$opts` must be an array');
-        } elseif (is_null($this->origin->getMerchantKey())) {
+        } elseif (is_null($origin->getMerchantKey())) {
             throw new SDKAuthErrorException('client merchant key must be set');
         }
 
-        $this->opts = $this->default_opts;
+        $this->opts = $this->defaultOpts;
         $this->updateOpts($opts);
 
         $this->origin   = $origin;
@@ -93,109 +92,107 @@ class APIRequest
      */
     public function call()
     {
+        // Initialize cURL instance
         $ch = curl_init();
 
-        $curl_headers = [];
+        $curlHeaders = [];
 
-        $call_url = SparrowClient::API_BASE_URI . $this->endpoint;
+        // Set cURL call URL
+        $callUrl = SparrowClient::API_BASE_URI . $this->endpoint;
 
+        // Set request method
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $this->method);
 
         // Attach origin client's merchant key to request parameters
         $this->opts['params']['mkey'] = $this->origin->getMerchantKey();
 
-        switch ($this->method) { // Method-oriented parsing
-            // case 'GET':
-            //     $call_url .= '?' . http_build_query($this->opts['params']);
+        // Method-oriented parsing
+        switch ($this->method) {
+            case 'GET':
+                $callUrl .= '?' . http_build_query($this->opts['params']);
 
-            //     break;
+                break;
+            case 'PUT':
             case 'POST':
-            // case 'PUT':
+                // Set request fields
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $this->opts['params']);
 
-                array_push($curl_headers, 'Content-Type: application/x-www-form-urlencoded');
-                array_push($curl_headers, 'Content-Length: ' . strlen($json_data));
-
-                // if ($this->opts['form_data'] === true) {
-                //     curl_setopt($ch, CURLOPT_POSTFIELDS, $this->opts['params']);
-
-                //     array_push($curl_headers, 'Content-Type: multipart/form-data');
-                // } else {
-                //     $json_data = json_encode($this->opts['params']);
-                //     curl_setopt($ch, CURLOPT_POSTFIELDS, $json_data);
-
-                //     array_push($curl_headers, 'Content-Type: application/json');
-                //     array_push($curl_headers, 'Content-Length: ' . strlen($json_data));
-                // }
+                // The Sparrow Services API explicitly requests this content type:
+                array_push($curlHeaders, 'Content-Type: application/x-www-form-urlencoded');
 
                 break;
         }
 
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $curl_headers);
-        curl_setopt($ch, CURLOPT_URL, $call_url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $curlHeaders);
+        curl_setopt($ch, CURLOPT_URL, $callUrl);
 
         curl_setopt($ch, CURLOPT_HEADER, false);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-        $curl_data   = curl_exec($ch);
-        $curl_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $curlData   = curl_exec($ch);
+        $curlStatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
+        // Cleanup cURL instance
         curl_close($ch);
         $ch = null;
 
         return [
-            'data'   => $curl_data,
-            'status' => $curl_status
+            'data'   => $curlData,
+            'status' => $curlStatus
         ];
     }
 
     /**
-     * Does cURL data interpretation
+     * Does cURL response data interpretation
      *
-     * @throws SDKErrorResponseException   if the remote response is an error.
+     * @throws SDKErrorResponseException      if the remote response is an error.
      *         A server response is interpreted as an error if obtained status code differs from expected status code.
      *         Expected status codes are `200 OK` for GET/POST/PUT, `204 No Content` for DELETE.
-     * @throws SDKBadJSONResponseException if the remote response contains error or invalid JSON content
+     * @throws SDKUnexpectedResponseException if the remote response contains errors or invalid content
      *
-     * @return mixed[]|boolean In case of successful request, a JSON decoded object is returned. If a DELETE request
+     * @return mixed[]|boolean In case of successful request, a URL decoded object is returned. If a DELETE request
      *         is issued, returns true if call is successful (exception otherwise).
      */
     public function exec()
     {
-        if ($this->origin->debug_return != null &&
-            array_key_exists('data', $this->origin->debug_return) &&
-            array_key_exists('status', $this->origin->debug_return)
+        if ($this->origin->debugReturn != null &&
+            array_key_exists('data', $this->origin->debugReturn) &&
+            array_key_exists('status', $this->origin->debugReturn)
         ) {
 
-            $curl_data   = $this->origin->debug_return['data'];
-            $curl_status = $this->origin->debug_return['status'];
+            // if `debugReturn` is present, assume mock response and skip remote API call
+            $curlData   = $this->origin->debugReturn['data'];
+            $curlStatus = $this->origin->debugReturn['status'];
 
         } else {
-            $call        = $this->call();
-            $curl_data   = $call['data'];
-            $curl_status = $call['status'];
+            $call       = $this->call();
+            $curlData   = $call['data'];
+            $curlStatus = $call['status'];
         }
 
-        $expected_http_status = $this->method === 'DELETE' ? 204 : 200;
+        $expectedHttpStatus = $this->method === 'DELETE' ? 204 : 200;
 
-        if ($curl_status !== $expected_http_status) {
-            throw new SDKErrorResponseException($curl_status . ' - ' . $curl_data);
+        if ($curlStatus !== $expectedHttpStatus) {
+            throw new SDKErrorResponseException($curlStatus . ' - ' . $curlData);
         }
 
-        if ($this->method === 'DELETE') { // if DELETE request, expect no output
+        // if DELETE request, expect no output
+        if ($this->method === 'DELETE') {
             return true;
         }
 
-        $json_data = json_decode($curl_data, true); // normally, expect JSON qualified output
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new SDKBadJSONResponseException($curl_data);
-        }
+        // normally, expect URL encoded output
+        parse_str($curlData, $responseData);
 
-        if (!count($json_data)) {
+        if (!count($responseData)) {
             throw new SDKUnexpectedResponseException('Empty object received');
         }
 
-        return $json_data;
+        if (!is_array($responseData) || !array_key_exists('response', $responseData)) {
+            throw new SDKUnexpectedResponseException($curlData);
+        }
+
+        return $responseData;
     }
 
 }
