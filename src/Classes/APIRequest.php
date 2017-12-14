@@ -115,7 +115,7 @@ class APIRequest
             case 'PUT':
             case 'POST':
                 // Set request fields
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $this->opts['params']);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($this->opts['params']));
 
                 // The Sparrow Services API explicitly requests this content type:
                 array_push($curlHeaders, 'Content-Type: application/x-www-form-urlencoded');
