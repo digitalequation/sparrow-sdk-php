@@ -49,9 +49,19 @@ class SparrowClient
 
     /**
      * SparrowClient constructor
+     *
+     * @param  string $merchantKey An optional merchant key to set
+     *
+     * @throws SDKInvalidArgException if $merchantKey is set and is not a string
      */
-    public function __construct()
+    public function __construct($merchantKey = null)
     {
+        if (!is_null($merchantKey) && !is_string($merchantKey)) {
+            throw new SDKInvalidArgException('`$merchantKey` must be a string');
+        }
+
+        $this->merchantKey = $merchantKey;
+
         $this->airline       = new AirlineHandler($this);
         $this->authorization = new AuthorizationHandler($this);
         $this->balance       = new BalanceHandler($this);
@@ -85,7 +95,7 @@ class SparrowClient
      *
      * @throws SDKInvalidArgException if provided $merchantKey param is not a string
      */
-    public function attachMerchantKey($merchantKey)
+    public function setMerchantKey($merchantKey)
     {
         if (!is_string($merchantKey)) {
             throw new SDKInvalidArgException('`$merchantKey` must be a string');
