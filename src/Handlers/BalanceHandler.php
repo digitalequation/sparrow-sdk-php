@@ -16,6 +16,6 @@ class BalanceHandler extends MethodHandler
             'cardexp' => true
         ];
 
-        // TODO
+        return $this->quickRequest($fields, $supports);
     }
 }

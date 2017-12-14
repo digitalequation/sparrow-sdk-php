@@ -15,7 +15,7 @@ class VoidHandler extends MethodHandler
             'transid' => true
         ];
 
-        // TODO
+        return $this->quickRequest($fields, $supports);
     }
 
     public function advanced($fields)
@@ -30,6 +30,6 @@ class VoidHandler extends MethodHandler
             'sendtransreceipttoemails'    => false
         ];
 
-        // TODO
+        return $this->quickRequest($fields, $supports);
     }
 }

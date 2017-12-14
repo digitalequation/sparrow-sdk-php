@@ -125,7 +125,7 @@ class VaultHandler extends MethodHandler
             'token' => true
         ];
 
-        // TODO
+        return $this->quickRequest($fields, $supports);
     }
 
     public function getCustomer($fields)
@@ -136,7 +136,7 @@ class VaultHandler extends MethodHandler
             'token' => true
         ];
 
-        // TODO
+        return $this->quickRequest($fields, $supports);
     }
 
     public function getPaymentType($fields)
@@ -147,7 +147,7 @@ class VaultHandler extends MethodHandler
             'token' => true
         ];
 
-        // TODO
+        return $this->quickRequest($fields, $supports);
     }
 
     public function decryptPaymentType($fields)
@@ -158,6 +158,6 @@ class VaultHandler extends MethodHandler
             'token' => true
         ];
 
-        // TODO
+        return $this->quickRequest($fields, $supports);
     }
 }

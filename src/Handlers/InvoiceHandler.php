@@ -7,7 +7,7 @@ use SparrowSDK\Classes\MethodHandler;
 
 class InvoiceHandler extends MethodHandler
 {
-    public function create($fields)
+    public function create($fields, $invoiceItems = [])
     {
         $fields['transtype'] = 'createmerchantinvoice';
 
@@ -20,17 +20,37 @@ class InvoiceHandler extends MethodHandler
             'invoicesource'        => false,
             'invoiceamount'        => false,
             'sendpaymentlinkemail' => false
-
-            // 'invoiceitemsku_#'         => false,
-            // 'invoiceitemdescription_#' => false,
-            // 'invoiceitemprice_#'       => false,
-            // 'invoiceitemquantity_#'    => false
         ];
 
-        // TODO
+        $invoiceItemSupports = [
+            'invoiceitemsku'         => false,
+            'invoiceitemdescription' => false,
+            'invoiceitemprice'       => false,
+            'invoiceitemquantity'    => false
+        ];
+
+        $this->enforce($fields, $supports);
+
+        $i = 1;
+        foreach ($invoiceItems as $invoiceItem) {
+            if (!count($invoiceItem)) {
+                continue;
+            }
+
+            $this->enforce($invoiceItem, $invoiceItemSupports);
+
+            foreach ($invoiceItem as $k => $v) {
+                $fields[$k . '_' . $i] = $v;
+            }
+
+            $i++;
+        }
+
+        $req = new APIRequest($this->origin, '', 'POST', ['params' => $fields]);
+        return $req->exec();
     }
 
-    public function update($fields)
+    public function update($fields, $invoiceItems = [])
     {
         $fields['transtype'] = 'updateinvoice';
 
@@ -44,14 +64,34 @@ class InvoiceHandler extends MethodHandler
             'invoicesource'        => false,
             'invoiceamount'        => false,
             'sendpaymentlinkemail' => false
-
-            // 'invoiceitemsku_#'         => false,
-            // 'invoiceitemdescription_#' => false,
-            // 'invoiceitemprice_#'       => false,
-            // 'invoiceitemquantity_#'    => false
         ];
 
-        // TODO
+        $invoiceItemSupports = [
+            'invoiceitemsku'         => false,
+            'invoiceitemdescription' => false,
+            'invoiceitemprice'       => false,
+            'invoiceitemquantity'    => false
+        ];
+
+        $this->enforce($fields, $supports);
+
+        $i = 1;
+        foreach ($invoiceItems as $invoiceItem) {
+            if (!count($invoiceItem)) {
+                continue;
+            }
+
+            $this->enforce($invoiceItem, $invoiceItemSupports);
+
+            foreach ($invoiceItem as $k => $v) {
+                $fields[$k . '_' . $i] = $v;
+            }
+
+            $i++;
+        }
+
+        $req = new APIRequest($this->origin, '', 'POST', ['params' => $fields]);
+        return $req->exec();
     }
 
     public function get($fields)
@@ -62,7 +102,7 @@ class InvoiceHandler extends MethodHandler
             'invoicenumber' => true,
         ];
 
-        // TODO
+        return $this->quickRequest($fields, $supports);
     }
 
     public function cancel($fields)
@@ -74,7 +114,7 @@ class InvoiceHandler extends MethodHandler
             'invoicestatusreason' => true
         ];
 
-        // TODO
+        return $this->quickRequest($fields, $supports);
     }
 
     public function cancelByCustomer($fields)
@@ -86,7 +126,7 @@ class InvoiceHandler extends MethodHandler
             'invoicestatusreason' => true
         ];
 
-        // TODO
+        return $this->quickRequest($fields, $supports);
     }
 
     public function payWithCreditCard($fields)
@@ -125,7 +165,7 @@ class InvoiceHandler extends MethodHandler
             'shipemail'     => false
         ];
 
-        // TODO
+        return $this->quickRequest($fields, $supports);
     }
 
     public function payWithBankAccount($fields)
@@ -165,6 +205,6 @@ class InvoiceHandler extends MethodHandler
             'shipemail'     => false
         ];
 
-        // TODO
+        return $this->quickRequest($fields, $supports);
     }
 }

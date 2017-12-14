@@ -23,6 +23,22 @@ abstract class MethodHandler
     }
 
     /**
+     * Shortcut helper function (since all Sparrow Services API calls are POST and share a single endpoint)
+     *
+     * @param  mixed[] $fields   forwards to `enforce()` and API request exec
+     * @param  mixed[] $supports forwards to `enforce()`
+     *
+     * @return mixed[]|boolean @see APIRequest@exec
+     */
+    protected function quickRequest($fields, $supports)
+    {
+        $this->enforce($fields, $supports);
+
+        $req = new APIRequest($this->origin, '', 'POST', ['params' => $fields]);
+        return $req->exec();
+    }
+
+    /**
      * Helper function that enforces a field structure based on a support table:
      *   - Forces use of fields marked as required (with value bool:true)
      *   - Detects duplicate fields

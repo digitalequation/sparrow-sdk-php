@@ -16,6 +16,6 @@ class CustomFieldHandler extends MethodHandler
             'token'     => true
         ];
 
-        // TODO
+        return $this->quickRequest($fields, $supports);
     }
 }

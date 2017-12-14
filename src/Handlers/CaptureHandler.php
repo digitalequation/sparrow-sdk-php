@@ -20,7 +20,7 @@ class CaptureHandler extends MethodHandler
             'sendtransreceipttoemails'    => false
         ];
 
-        // TODO
+        return $this->quickRequest($fields, $supports);
     }
 
     public function simpleOffline($fields)
@@ -38,10 +38,10 @@ class CaptureHandler extends MethodHandler
             'cvv' => false
         ];
 
-        // TODO
+        return $this->quickRequest($fields, $supports);
     }
 
-    public function advanced($fields)
+    public function advanced($fields, $optAmounts = [])
     {
         $fields['transtype'] = 'capture';
 
@@ -55,12 +55,32 @@ class CaptureHandler extends MethodHandler
             'shiptracknum'                => false,
             'shipcarrier'                 => false,
             'orderid'                     => false
-
-            // 'opt_amount_type_#'       => false,
-            // 'opt_amount_value_#'      => false,
-            // 'opt_amount_percentage_#' => false
         ];
 
-        // TODO
+        $optAmountSupports = [
+            'opt_amount_type'       => false,
+            'opt_amount_value'      => false,
+            'opt_amount_percentage' => false
+        ];
+
+        $this->enforce($fields, $supports);
+
+        $i = 1;
+        foreach ($optAmounts as $optAmount) {
+            if (!count($optAmount)) {
+                continue;
+            }
+
+            $this->enforce($optAmount, $optAmountSupports);
+
+            foreach ($optAmount as $k => $v) {
+                $fields[$k . '_' . $i] = $v;
+            }
+
+            $i++;
+        }
+
+        $req = new APIRequest($this->origin, '', 'POST', ['params' => $fields]);
+        return $req->exec();
     }
 }

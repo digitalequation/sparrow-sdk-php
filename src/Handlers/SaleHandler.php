@@ -20,10 +20,10 @@ class SaleHandler extends MethodHandler
             'cvv' => false
         ];
 
-        // TODO
+        return $this->quickRequest($fields, $supports);
     }
 
-    public function advancedCard($fields)
+    public function advancedCard($fields, $skus = [], $optAmounts = [])
     {
         $fields['transtype'] = 'sale';
 
@@ -78,18 +78,55 @@ class SaleHandler extends MethodHandler
             'threedsecparesstatus'         => false,
             'signatureverification'        => false,
             'threedsecuretransactionid'    => false
-
-            // 'skunumber_#'   => false,
-            // 'description_#' => false,
-            // 'amount_#'      => false,
-            // 'quantity_#'    => false
-
-            // 'opt_amount_type_#'       => false,
-            // 'opt_amount_value_#'      => false,
-            // 'opt_amount_percentage_#' => false
         ];
 
-        // TODO
+        $skuSupports = [
+            'skunumber'   => false,
+            'description' => false,
+            'amount'      => false,
+            'quantity'    => false
+        ];
+
+        $optAmountSupports = [
+            'opt_amount_type'       => false,
+            'opt_amount_value'      => false,
+            'opt_amount_percentage' => false
+        ];
+
+        $this->enforce($fields, $supports);
+
+        $i = 1;
+        foreach ($skus as $sku) {
+            if (!count($sku)) {
+                continue;
+            }
+
+            $this->enforce($sku, $skuSupports);
+
+            foreach ($sku as $k => $v) {
+                $fields[$k . '_' . $i] = $v;
+            }
+
+            $i++;
+        }
+
+        $i = 1;
+        foreach ($optAmounts as $optAmount) {
+            if (!count($optAmount)) {
+                continue;
+            }
+
+            $this->enforce($optAmount, $optAmountSupports);
+
+            foreach ($optAmount as $k => $v) {
+                $fields[$k . '_' . $i] = $v;
+            }
+
+            $i++;
+        }
+
+        $req = new APIRequest($this->origin, '', 'POST', ['params' => $fields]);
+        return $req->exec();
     }
 
     public function simpleStarCard($fields)
@@ -104,10 +141,10 @@ class SaleHandler extends MethodHandler
             'CID'     => true
         ];
 
-        // TODO
+        return $this->quickRequest($fields, $supports);
     }
 
-    public function advancedStarCard($fields)
+    public function advancedStarCard($fields, $skus = [])
     {
         $fields['transtype'] = 'sale';
 
@@ -147,14 +184,34 @@ class SaleHandler extends MethodHandler
             'shipcountry'                  => false,
             'shipphone'                    => false,
             'shipemail'                    => false
-
-            // 'skunumber_#'   => false,
-            // 'description_#' => false,
-            // 'amount_#'      => false,
-            // 'quantity_#'    => false
         ];
 
-        // TODO
+        $skuSupports = [
+            'skunumber'   => false,
+            'description' => false,
+            'amount'      => false,
+            'quantity'    => false
+        ];
+
+        $this->enforce($fields, $supports);
+
+        $i = 1;
+        foreach ($skus as $sku) {
+            if (!count($sku)) {
+                continue;
+            }
+
+            $this->enforce($sku, $skuSupports);
+
+            foreach ($sku as $k => $v) {
+                $fields[$k . '_' . $i] = $v;
+            }
+
+            $i++;
+        }
+
+        $req = new APIRequest($this->origin, '', 'POST', ['params' => $fields]);
+        return $req->exec();
     }
 
     public function simpleAch($fields)
@@ -172,10 +229,10 @@ class SaleHandler extends MethodHandler
             'company' => false
         ];
 
-        // TODO
+        return $this->quickRequest($fields, $supports);
     }
 
-    public function advancedAch($fields)
+    public function advancedAch($fields, $optAmounts = [])
     {
         $fields['transtype'] = 'sale';
 
@@ -222,13 +279,33 @@ class SaleHandler extends MethodHandler
             'sendtransreceipttobillemail' => false,
             'sendtransreceipttoshipemail' => false,
             'sendtransreceipttoemails'    => false
-
-            // 'opt_amount_type_#'       => false,
-            // 'opt_amount_value_#'      => false,
-            // 'opt_amount_percentage_#' => false
         ];
 
-        // TODO
+        $optAmountSupports = [
+            'opt_amount_type'       => false,
+            'opt_amount_value'      => false,
+            'opt_amount_percentage' => false
+        ];
+
+        $this->enforce($fields, $supports);
+
+        $i = 1;
+        foreach ($optAmounts as $optAmount) {
+            if (!count($optAmount)) {
+                continue;
+            }
+
+            $this->enforce($optAmount, $optAmountSupports);
+
+            foreach ($optAmount as $k => $v) {
+                $fields[$k . '_' . $i] = $v;
+            }
+
+            $i++;
+        }
+
+        $req = new APIRequest($this->origin, '', 'POST', ['params' => $fields]);
+        return $req->exec();
     }
 
     public function simpleEcheck($fields)
@@ -252,10 +329,10 @@ class SaleHandler extends MethodHandler
             'company' => false
         ];
 
-        // TODO
+        return $this->quickRequest($fields, $supports);
     }
 
-    public function advancedEcheck($fields)
+    public function advancedEcheck($fields, $optAmounts = [])
     {
         $fields['transtype'] = 'sale';
 
@@ -295,12 +372,32 @@ class SaleHandler extends MethodHandler
             'sendtransreceipttobillemail' => false,
             'sendtransreceipttoshipemail' => false,
             'sendtransreceipttoemails'    => false
-
-            // 'opt_amount_type_#'       => false,
-            // 'opt_amount_value_#'      => false,
-            // 'opt_amount_percentage_#' => false
         ];
 
-        // TODO
+        $optAmountSupports = [
+            'opt_amount_type'       => false,
+            'opt_amount_value'      => false,
+            'opt_amount_percentage' => false
+        ];
+
+        $this->enforce($fields, $supports);
+
+        $i = 1;
+        foreach ($optAmounts as $optAmount) {
+            if (!count($optAmount)) {
+                continue;
+            }
+
+            $this->enforce($optAmount, $optAmountSupports);
+
+            foreach ($optAmount as $k => $v) {
+                $fields[$k . '_' . $i] = $v;
+            }
+
+            $i++;
+        }
+
+        $req = new APIRequest($this->origin, '', 'POST', ['params' => $fields]);
+        return $req->exec();
     }
 }

@@ -20,7 +20,7 @@ class AuthorizationHandler extends MethodHandler
             'cvv' => false
         ];
 
-        // TODO
+        return $this->quickRequest($fields, $supports);
     }
 
     public function verifyAccount($fields)
@@ -37,6 +37,6 @@ class AuthorizationHandler extends MethodHandler
             'zip' => false
         ];
 
-        // TODO
+        return $this->quickRequest($fields, $supports);
     }
 }

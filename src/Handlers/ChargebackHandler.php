@@ -16,6 +16,6 @@ class ChargebackHandler extends MethodHandler
             'reason'  => true
         ];
 
-        // TODO
+        return $this->quickRequest($fields, $supports);
     }
 }

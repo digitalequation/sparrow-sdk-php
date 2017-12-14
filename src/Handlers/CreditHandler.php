@@ -26,10 +26,10 @@ class CreditHandler extends MethodHandler
             'company' => false
         ];
 
-        // TODO
+        return $this->quickRequest($fields, $supports);
     }
 
-    public function advancedAch($fields)
+    public function advancedAch($fields, $optAmounts = [])
     {
         $fields['transtype'] = 'credit';
 
@@ -76,13 +76,33 @@ class CreditHandler extends MethodHandler
             'sendtransreceipttobillemail' => false,
             'sendtransreceipttoshipemail' => false,
             'sendtransreceipttoemails'    => false
-
-            // 'opt_amount_type_#'       => false,
-            // 'opt_amount_value_#'      => false,
-            // 'opt_amount_percentage_#' => false
         ];
 
-        // TODO
+        $optAmountSupports = [
+            'opt_amount_type'       => false,
+            'opt_amount_value'      => false,
+            'opt_amount_percentage' => false
+        ];
+
+        $this->enforce($fields, $supports);
+
+        $i = 1;
+        foreach ($optAmounts as $optAmount) {
+            if (!count($optAmount)) {
+                continue;
+            }
+
+            $this->enforce($optAmount, $optAmountSupports);
+
+            foreach ($optAmount as $k => $v) {
+                $fields[$k . '_' . $i] = $v;
+            }
+
+            $i++;
+        }
+
+        $req = new APIRequest($this->origin, '', 'POST', ['params' => $fields]);
+        return $req->exec();
     }
 
     public function simpleEcheck($fields)
@@ -106,10 +126,10 @@ class CreditHandler extends MethodHandler
             'company' => false
         ];
 
-        // TODO
+        return $this->quickRequest($fields, $supports);
     }
 
-    public function advancedEcheck($fields)
+    public function advancedEcheck($fields, $optAmounts = [])
     {
         $fields['transtype'] = 'credit';
 
@@ -149,13 +169,33 @@ class CreditHandler extends MethodHandler
             'sendtransreceipttobillemail' => false,
             'sendtransreceipttoshipemail' => false,
             'sendtransreceipttoemails'    => false
-
-            // 'opt_amount_type_#'       => false,
-            // 'opt_amount_value_#'      => false,
-            // 'opt_amount_percentage_#' => false
         ];
 
-        // TODO
+        $optAmountSupports = [
+            'opt_amount_type'       => false,
+            'opt_amount_value'      => false,
+            'opt_amount_percentage' => false
+        ];
+
+        $this->enforce($fields, $supports);
+
+        $i = 1;
+        foreach ($optAmounts as $optAmount) {
+            if (!count($optAmount)) {
+                continue;
+            }
+
+            $this->enforce($optAmount, $optAmountSupports);
+
+            foreach ($optAmount as $k => $v) {
+                $fields[$k . '_' . $i] = $v;
+            }
+
+            $i++;
+        }
+
+        $req = new APIRequest($this->origin, '', 'POST', ['params' => $fields]);
+        return $req->exec();
     }
 
     public function simpleEwallet($fields)
@@ -170,6 +210,6 @@ class CreditHandler extends MethodHandler
             'currency'    => false
         ];
 
-        // TODO
+        return $this->quickRequest($fields, $supports);
     }
 }
