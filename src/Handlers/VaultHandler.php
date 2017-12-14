@@ -7,7 +7,7 @@ use SparrowSDK\Classes\MethodHandler;
 
 class VaultHandler extends MethodHandler
 {
-    public function addCustomer($fields)
+    public function addCustomer($fields, $payTypes = [])
     {
         $fields['transtype'] = 'addcustomer';
 
@@ -15,6 +15,7 @@ class VaultHandler extends MethodHandler
             'firstname' => true,
             'lastname'  => true,
 
+            // 'token'           => false, // NOTE: confirm this field should not exist in add scope (poor documentation)
             'customerid'      => false,
             'note'            => false,
             'address1'        => false,
@@ -39,32 +40,65 @@ class VaultHandler extends MethodHandler
             'username'        => false,
             'password'        => false,
             'clientuseremail' => false
-
-            // 'paytype_#'           => false,
-            // 'company_#'           => false,
-            // 'firstname_#'         => false,
-            // 'lastname_#'          => false,
-            // 'address1_#'          => false,
-            // 'address2_#'          => false,
-            // 'city_#'              => false,
-            // 'state_#'             => false,
-            // 'zip_#'               => false,
-            // 'country_#'           => false,
-            // 'phone_#'             => false,
-            // 'email_#'             => false,
-            // 'cardnum_#'           => false,
-            // 'cardexp_#'           => false,
-            // 'bankname_#'          => false,
-            // 'routing_#'           => false,
-            // 'account_#'           => false,
-            // 'achaccounttype_#'    => false,
-            // 'achaccountsubtype_#' => false,
-            // 'payno_#'             => false,
-            // 'ewalletaccount_#'    => false,
-            // 'ewallettype_#'       => false
         ];
 
-        // TODO + by payment type specific field restrictions + split this maybe ?
+        $payTypeSupports = [
+            // Common:
+            'paytype'   => true,
+            'firstname' => true,
+            'lastname'  => true,
+
+            'company'  => false,
+            'address1' => false,
+            'address2' => false,
+            'city'     => false,
+            'state'    => false,
+            'zip'      => false,
+            'country'  => false,
+            'phone'    => false,
+            'email'    => false,
+            'payno'    => false,
+
+            // Card & Star Card:
+            'cardnum' => false,
+
+            // Card:
+            'cardexp' => false,
+
+            // ACH:
+            'bankname'          => false,
+            'routing'           => false,
+            'account'           => false,
+            'achaccounttype'    => false,
+            'achaccountsubtype' => false,
+
+            // Star Card:
+            'CID' => false,
+
+            // eWallet:
+            'ewalletaccount' => false,
+            'ewallettype'    => false
+        ];
+
+        $this->enforce($fields, $supports);
+
+        $i = 1;
+        foreach ($payTypes as $payType) {
+            if (!count($payType)) {
+                continue;
+            }
+
+            $this->enforce($payType, $payTypeSupports);
+
+            foreach ($payType as $k => $v) {
+                $fields[$k . '_' . $i] = $v;
+            }
+
+            $i++;
+        }
+
+        $req = new APIRequest($this->origin, '', 'POST', ['params' => $fields]);
+        return $req->exec();
     }
 
     public function updateCustomer($fields)
@@ -99,22 +133,177 @@ class VaultHandler extends MethodHandler
             'clientuseremail' => false
         ];
 
-        // TODO
+        return $this->quickRequest($fields, $supports);
     }
 
-    public function addPaymentType($fields)
+    public function addPaymentType($fields, $payTypes = [])
     {
-        // TODO + split this maybe ?
+        $fields['transtype'] = 'updatecustomer';
+
+        $supports = [
+            'token' => true
+        ];
+
+        $payTypeSupports = [
+            // Common:
+            'paytype'   => true,
+            'firstname' => true,
+            'lastname'  => true,
+
+            'company'  => false,
+            'address1' => false,
+            'address2' => false,
+            'city'     => false,
+            'state'    => false,
+            'zip'      => false,
+            'country'  => false,
+            'phone'    => false,
+            'email'    => false,
+            'payno'    => false,
+
+            // Card & Star Card:
+            'cardnum' => false,
+
+            // Card:
+            'cardexp' => false,
+
+            // ACH:
+            'bankname'          => false,
+            'routing'           => false,
+            'account'           => false,
+            'achaccounttype'    => false,
+            'achaccountsubtype' => false,
+
+            // Star Card:
+            'CID' => false,
+
+            // eWallet:
+            'ewalletaccount' => false,
+            'ewallettype'    => false
+        ];
+
+        $this->enforce($fields, $supports);
+
+        $i = 1;
+        foreach ($payTypes as $payType) {
+            if (!count($payType)) {
+                continue;
+            }
+
+            $this->enforce($payType, $payTypeSupports);
+
+            $fields['operationtype_' . $i] = 'addpaytype';
+            foreach ($payType as $k => $v) {
+                $fields[$k . '_' . $i] = $v;
+            }
+
+            $i++;
+        }
+
+        $req = new APIRequest($this->origin, '', 'POST', ['params' => $fields]);
+        return $req->exec();
     }
 
-    public function updatePaymentType($fields)
+    public function updatePaymentType($fields, $payTypes = [])
     {
-        // TODO + split this maybe ?
+        $fields['transtype'] = 'updatecustomer';
+
+        $supports = [
+            'token' => true
+        ];
+
+        $payTypeSupports = [
+            // Common:
+            'token' => true,
+
+            'firstname' => false,
+            'lastname'  => false,
+            'company'   => false,
+            'address1'  => false,
+            'address2'  => false,
+            'city'      => false,
+            'state'     => false,
+            'zip'       => false,
+            'country'   => false,
+            'phone'     => false,
+            'email'     => false,
+            'payno'     => false,
+
+            // Card & Star Card:
+            'cardnum' => false,
+
+            // Card:
+            'cardexp' => false,
+
+            // ACH:
+            'bankname'          => false,
+            'routing'           => false,
+            'account'           => false,
+            'achaccounttype'    => false,
+            'achaccountsubtype' => false,
+
+            // Star Card:
+            'CID' => false,
+
+            // eWallet:
+            'ewalletaccount' => false,
+            'ewallettype'    => false
+        ];
+
+        $this->enforce($fields, $supports);
+
+        $i = 1;
+        foreach ($payTypes as $payType) {
+            if (!count($payType)) {
+                continue;
+            }
+
+            $this->enforce($payType, $payTypeSupports);
+
+            $fields['operationtype_' . $i] = 'updatepaytype';
+            foreach ($payType as $k => $v) {
+                $fields[$k . '_' . $i] = $v;
+            }
+
+            $i++;
+        }
+
+        $req = new APIRequest($this->origin, '', 'POST', ['params' => $fields]);
+        return $req->exec();
     }
 
-    public function deletePaymentType($fields)
+    public function deletePaymentType($fields, $payTypes = [])
     {
-        // TODO + split this maybe ?
+        $fields['transtype'] = 'updatecustomer';
+
+        $supports = [
+            'token' => true
+        ];
+
+        $payTypeSupports = [
+            'token' => true
+        ];
+
+        $this->enforce($fields, $supports);
+
+        $i = 1;
+        foreach ($payTypes as $payType) {
+            if (!count($payType)) {
+                continue;
+            }
+
+            $this->enforce($payType, $payTypeSupports);
+
+            $fields['operationtype_' . $i] = 'deletepaytype';
+            foreach ($payType as $k => $v) {
+                $fields[$k . '_' . $i] = $v;
+            }
+
+            $i++;
+        }
+
+        $req = new APIRequest($this->origin, '', 'POST', ['params' => $fields]);
+        return $req->exec();
     }
 
     public function deleteCustomer($fields)

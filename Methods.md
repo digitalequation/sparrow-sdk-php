@@ -128,11 +128,11 @@ _Account Verification_ = ->authorization->verifyAccount()
 transtype=addcustomer
 _Adding a Customer_                  = ->vault->addCustomer()
 transtype=addcustomer
-_Add Customer by Payment Type_       = `???`
-    _Credit Card_                    = `???`
-    _ACH_                            = `???`
-    _Star Card_                      = `???`
-    _eWallet_                        = `???`
+_Add Customer by Payment Type_
+    _Credit Card_
+    _ACH_
+    _Star Card_
+    _eWallet_
 transtype=updatecustomer
 _Update Customer_                    = ->vault->updateCustomer()
 transtype=updatecustomer
