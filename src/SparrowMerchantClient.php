@@ -2,6 +2,7 @@
 
 namespace SparrowSDK;
 
+use SparrowSDK\Exceptions\SDKAuthErrorException;
 use SparrowSDK\Exceptions\SDKInvalidArgException;
 
 use SparrowSDK\Merchant\Handlers\AuthHandler;
@@ -50,11 +51,18 @@ class SparrowMerchantClient
     /**
      * Retrieve the currently attached merchant key
      *
+     * @param $force boolean Whether or not to throw an exception if the merchant key is null
+     *
+     * @throws SDKAuthErrorException If $force is set to true and merchant key is null
+     *
      * @return string|null The attached merchant key or null if it is not set
      */
-    public function getMerchantKey()
+    public function getMerchantKey($force = false)
     {
-        // TODO: maybe add `$force = false` param that throws exception if `mkey` is null
+        if ($force === true && is_null($this->merchantKey)) {
+            throw new SDKAuthErrorException('merchant key must be set');
+        }
+
         return $this->merchantKey;
     }
 

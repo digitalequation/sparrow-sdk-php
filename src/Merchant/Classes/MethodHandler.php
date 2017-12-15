@@ -24,6 +24,20 @@ abstract class MethodHandler
     }
 
     /**
+     * Request helper
+     *
+     * @param string $endpoint forward to APIRequest@__construct
+     * @param string $method   forward to APIRequest@__construct
+     * @param array  $opts     forward to APIRequest@__construct
+     *
+     * @return mixed[]|boolean @see APIRequest@exec
+     */
+    protected function request($endpoint, $method, $opts = [])
+    {
+        return (new APIRequest($this->origin, $endpoint, $method, $opts))->exec();
+    }
+
+    /**
      * Helper function that enforces a field structure based on a support table:
      *   - Forces use of fields marked as required (with value bool:true)
      *   - Detects duplicate fields

@@ -4,7 +4,6 @@ namespace SparrowSDK\Merchant\Classes;
 
 use SparrowSDK\SparrowMerchantClient;
 
-// use SparrowSDK\Exceptions\SDKAuthErrorException; // <- TODO: remove this
 use SparrowSDK\Exceptions\SDKBadJSONResponseException;
 use SparrowSDK\Exceptions\SDKErrorResponseException;
 use SparrowSDK\Exceptions\SDKInvalidArgException;
@@ -43,7 +42,6 @@ class APIRequest
      * @throws SDKInvalidArgException if unsupported $method is provided.
      * @throws SDKInvalidArgException if $endpoint is non-string.
      * @throws SDKInvalidArgException if $opts param is not an array.
-     * @throws SDKAuthErrorException  if $origin->merchantKey is null (not set) <- TODO: remove this
      */
     public function __construct(SparrowMerchantClient $origin, $endpoint, $method, $opts = [])
     {
@@ -56,11 +54,6 @@ class APIRequest
         } elseif (!is_array($opts)) {
             throw new SDKInvalidArgException('`$opts` must be an array');
         }
-
-        // TODO: Add this check for specific actions that require an `mkey`:
-        // elseif (is_null($origin->getMerchantKey())) {
-        //     throw new SDKAuthErrorException('client merchant key must be set');
-        // }
 
         $this->opts = $this->defaultOpts;
         $this->updateOpts($opts);
@@ -106,10 +99,6 @@ class APIRequest
 
         // Set request method
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $this->method);
-
-        // TODO: Add this operation for specific actions that require an `mkey`:
-        // // Attach origin client's merchant key to request parameters
-        // $this->opts['params']['mkey'] = $this->origin->getMerchantKey();
 
         // Method-oriented parsing
         switch ($this->method) {

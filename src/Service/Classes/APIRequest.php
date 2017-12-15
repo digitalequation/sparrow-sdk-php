@@ -55,7 +55,7 @@ class APIRequest
         } elseif (!is_array($opts)) {
             throw new SDKInvalidArgException('`$opts` must be an array');
         } elseif (is_null($origin->getMerchantKey())) {
-            throw new SDKAuthErrorException('client merchant key must be set');
+            throw new SDKAuthErrorException('merchant key must be set');
         }
 
         $this->opts = $this->defaultOpts;

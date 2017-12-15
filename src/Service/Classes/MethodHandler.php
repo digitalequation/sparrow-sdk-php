@@ -28,7 +28,7 @@ abstract class MethodHandler
     }
 
     /**
-     * Shortcut helper function (since all Sparrow Services API calls are POST and share a single endpoint)
+     * Request shortcut helper (since all Sparrow Services API calls are POST and share a single endpoint)
      *
      * @param  mixed[]         $fields   forwards to `enforce()` (if applicable) and API request exec
      * @param  mixed[]|boolean $supports forwards to `enforce()` or ignore if set to false
