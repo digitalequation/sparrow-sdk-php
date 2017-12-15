@@ -43,13 +43,15 @@ Project dependencies must be updated afterwards:
 $ composer update
 ```
 
-## Method references
+## `SparrowServiceClient`
 
-### 1. `SparrowServiceClient`
+### Creating a new instance
 
 > TODO
 
-### 2. `SparrowMerchantClient`
+## `SparrowMerchantClient`
+
+### Creating a new instance
 
 > TODO
 
