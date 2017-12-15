@@ -43,13 +43,13 @@ Project dependencies must be updated afterwards:
 $ composer update
 ```
 
-## SparrowServiceClient
+## [SparrowServiceClient]
 
 ### Creating a new instance
 
 > TODO
 
-## SparrowMerchantClient
+## [SparrowMerchantClient]
 
 ### Creating a new instance
 
