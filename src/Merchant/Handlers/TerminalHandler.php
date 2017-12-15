@@ -4,8 +4,6 @@ namespace SparrowSDK\Merchant\Handlers;
 
 use SparrowSDK\Merchant\Classes\MethodHandler;
 
-use SparrowSDK\Exceptions\SDKInvalidArgException;
-
 class TerminalHandler extends MethodHandler
 {
     /**
@@ -18,14 +16,11 @@ class TerminalHandler extends MethodHandler
      */
     public function settle($token)
     {
-        if (!is_string($token)) {
-            throw new SDKInvalidArgException('`$token` must be a string');
-        }
-
+        $token       = $this->origin->getAuthToken(true);
         $queryParams = http_build_query(compact('token'));
 
         return $this->request('POST', '/terminal/settle?' . $queryParams, ['params' => [
-            'mkey' => $this->origin->getMerchantKey()
+            'mkey' => $this->origin->getMerchantKey(true)
         ]]);
     }
 }

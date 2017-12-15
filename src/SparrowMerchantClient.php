@@ -21,6 +21,7 @@ class SparrowMerchantClient
     public const API_BASE_URI = 'https://secure.sparrowone.com/api/public/merchant';
 
     protected $merchantKey = null;
+    protected $authToken   = null;
 
     public $auth;
     public $terminal;
@@ -81,5 +82,40 @@ class SparrowMerchantClient
         }
 
         $this->merchantKey = $merchantKey;
+    }
+
+    /**
+     * Retrieve the currently attached authentication token
+     *
+     * @param $force boolean Whether or not to throw an exception if the auth token is null
+     *
+     * @throws SDKAuthErrorException If $force is set to true and auth token is null
+     *
+     * @return string|null The attached auth token or null if it is not set
+     */
+    public function getAuthToken($force = false)
+    {
+        if ($force === true && is_null($this->authToken)) {
+            throw new SDKAuthErrorException('auth token must be set');
+        }
+
+        return $this->authToken;
+    }
+
+    /**
+     * Attach an auth token to the client instance. Token changes are dynamic - all objects/entities originating
+     * from an instance which has had its token updated will utilize the new token automatically.
+     *
+     * @param  string $authToken The new string type auth token to attach
+     *
+     * @throws SDKInvalidArgException if provided $authToken param is not a string
+     */
+    public function setAuthToken($authToken)
+    {
+        if (!is_string($authToken)) {
+            throw new SDKInvalidArgException('`$authToken` must be a string');
+        }
+
+        $this->authToken = $authToken;
     }
 }

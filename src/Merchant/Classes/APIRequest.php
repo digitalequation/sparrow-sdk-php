@@ -112,7 +112,7 @@ class APIRequest
                 $jsonData = json_encode($this->opts['params']);
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
 
-                // The Sparrow Merchant Public API supports both JSON and XML. XML is fugly so we'll be using JSON.
+                // The Sparrow Merchant APIs support both JSON and XML. XML is fugly so we'll be using JSON.
                 array_push($curl_headers, 'Content-Type: application/json');
                 array_push($curl_headers, 'Content-Length: ' . strlen($jsonData));
 
