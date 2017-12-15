@@ -26,7 +26,7 @@ class AuthHandler extends MethodHandler
             throw new SDKInvalidArgException('`$password` must be a string');
         }
 
-        return $this->request('/account', 'POST', ['params' => [
+        return $this->request('POST', '/account', ['params' => [
             'Username' => $username,
             'Password' => $password
         ]]);

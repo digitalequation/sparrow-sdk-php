@@ -33,8 +33,8 @@ class APIRequest
      * Constructs API request definition.
      *
      * @param SparrowMerchantClient $origin   Originating SparrowMerchantClient reference
-     * @param string                $endpoint API endpoint
      * @param string                $method   Method for cURL call - supports GET, POST, PUT or DELETE only
+     * @param string                $endpoint API endpoint
      * @param mixed[]               $opts     (optional) Additional options to pass to request.
      *                                        Request parameters (if any) must be passed here
      *
@@ -43,7 +43,7 @@ class APIRequest
      * @throws SDKInvalidArgException if $endpoint is non-string.
      * @throws SDKInvalidArgException if $opts param is not an array.
      */
-    public function __construct(SparrowMerchantClient $origin, $endpoint, $method, $opts = [])
+    public function __construct(SparrowMerchantClient $origin, $method, $endpoint, $opts = [])
     {
         if (!is_string($method)) {
             throw new SDKInvalidArgException('`$method` must be a string');

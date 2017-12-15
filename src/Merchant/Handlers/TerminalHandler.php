@@ -24,7 +24,7 @@ class TerminalHandler extends MethodHandler
 
         $queryParams = http_build_query(compact('token'));
 
-        return $this->request('/account?' . $queryParams, 'POST', ['params' => [
+        return $this->request('POST', '/terminal/settle?' . $queryParams, ['params' => [
             'mkey' => $this->origin->getMerchantKey()
         ]]);
     }

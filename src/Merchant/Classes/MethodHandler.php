@@ -26,15 +26,15 @@ abstract class MethodHandler
     /**
      * Request helper
      *
-     * @param string $endpoint forward to APIRequest@__construct
      * @param string $method   forward to APIRequest@__construct
+     * @param string $endpoint forward to APIRequest@__construct
      * @param array  $opts     forward to APIRequest@__construct
      *
      * @return mixed[]|boolean @see APIRequest@exec
      */
-    protected function request($endpoint, $method, $opts = [])
+    protected function request($method, $endpoint, $opts = [])
     {
-        return (new APIRequest($this->origin, $endpoint, $method, $opts))->exec();
+        return (new APIRequest($this->origin, $method, $endpoint, $opts))->exec();
     }
 
     /**

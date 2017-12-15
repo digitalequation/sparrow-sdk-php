@@ -41,7 +41,7 @@ abstract class MethodHandler
             $this->enforce($fields, $supports);
         }
 
-        return (new APIRequest($this->origin, '', 'POST', ['params' => $fields]))->exec();
+        return (new APIRequest($this->origin, 'POST', '', ['params' => $fields]))->exec();
     }
 
     /**

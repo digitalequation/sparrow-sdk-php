@@ -7,7 +7,7 @@ use SparrowSDK\Exceptions\SDKInvalidArgException;
 
 use SparrowSDK\Merchant\Handlers\AuthHandler;
 use SparrowSDK\Merchant\Handlers\TerminalHandler;
-use SparrowSDK\Merchant\Handlers\TransactionsHandler;
+use SparrowSDK\Merchant\Handlers\TransactionHandler;
 
 /**
  *
@@ -45,7 +45,7 @@ class SparrowMerchantClient
 
         $this->auth         = new AuthHandler($this);
         $this->terminal     = new TerminalHandler($this);
-        $this->transactions = new TransactionsHandler($this);
+        $this->transactions = new TransactionHandler($this);
     }
 
     /**
