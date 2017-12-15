@@ -22,8 +22,8 @@ use SparrowSDK\Service\Handlers\VoidHandler;
  *
  * Sparrow PHP Client for Services API
  *
- * @link http://foresight.sparrowone.com/ Follows the Sparrow One Services API documentation
- * @see  SPARROW-Services-API-for-Developers-v3.7.pdf for more details
+ * @link http://foresight.sparrowone.com/
+ * @link https://sparrowone.com/wp-content/uploads/2017/07/SPARROW-Services-API-for-Developers-v3.7.pdf
  *
  */
 class SparrowServiceClient
@@ -89,7 +89,7 @@ class SparrowServiceClient
     }
 
     /**
-     * Attach merchant key to SDK client instance. Key changes are dynamic - all objects/entities originating
+     * Attach a merchant key to the client instance. Key changes are dynamic - all objects/entities originating
      * from an instance which has had its key updated will utilize the new key automatically.
      *
      * @param  string $merchantKey The new string type merchant key to attach
@@ -104,5 +104,4 @@ class SparrowServiceClient
 
         $this->merchantKey = $merchantKey;
     }
-
 }

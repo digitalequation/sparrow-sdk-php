@@ -1,8 +1,8 @@
 <?php
 
-namespace SparrowSDK\Service\Classes;
+namespace SparrowSDK\Merchant\Classes;
 
-use SparrowSDK\SparrowServiceClient;
+use SparrowSDK\SparrowMerchantClient;
 
 use SparrowSDK\Exceptions\SDKUnsupportedRequestException;
 use SparrowSDK\Exceptions\SDKIncompleteRequestException;
@@ -15,32 +15,12 @@ use SparrowSDK\Exceptions\SDKDuplicateRequestException;
  */
 abstract class MethodHandler
 {
-    protected const GLOBAL_SUPPORTS = [
-        'transtype' => false
-    ];
-
-    // Reference to originating SparrowServiceClient instance
+    // Reference to originating SparrowMerchantClient instance
     protected $origin;
 
-    public function __construct(SparrowServiceClient $origin)
+    public function __construct(SparrowMerchantClient $origin)
     {
         $this->origin = $origin;
-    }
-
-    /**
-     * Shortcut helper function (since all Sparrow Services API calls are POST and share a single endpoint)
-     *
-     * @param  mixed[] $fields   forwards to `enforce()` and API request exec
-     * @param  mixed[] $supports forwards to `enforce()`
-     *
-     * @return mixed[]|boolean @see APIRequest@exec
-     */
-    protected function quickRequest($fields, $supports)
-    {
-        $this->enforce($fields, $supports);
-
-        $req = new APIRequest($this->origin, '', 'POST', ['params' => $fields]);
-        return $req->exec();
     }
 
     /**
@@ -60,8 +40,6 @@ abstract class MethodHandler
      */
     protected function enforce($array, $supports)
     {
-        $supports += self::GLOBAL_SUPPORTS;
-
         $sall  = [];        // All supported keys
         $sreq  = [];        // Mandatory supported keys
 
