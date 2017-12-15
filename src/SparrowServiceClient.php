@@ -20,9 +20,9 @@ use SparrowSDK\Service\Handlers\VoidHandler;
 
 /**
  *
- * Sparrow PHP Client
+ * Sparrow PHP Client for Services API
  *
- * @link http://foresight.sparrowone.com/ Follows the Sparrow One Service API documentation
+ * @link http://foresight.sparrowone.com/ Follows the Sparrow One Services API documentation
  * @see  SPARROW-Services-API-for-Developers-v3.7.pdf for more details
  *
  */
