@@ -4,19 +4,19 @@ namespace SparrowSDK;
 
 use SparrowSDK\Exceptions\SDKInvalidArgException;
 
-use SparrowSDK\Handlers\AirlineHandler;
-use SparrowSDK\Handlers\AuthorizationHandler;
-use SparrowSDK\Handlers\BalanceHandler;
-use SparrowSDK\Handlers\CaptureHandler;
-use SparrowSDK\Handlers\ChargebackHandler;
-use SparrowSDK\Handlers\CreditHandler;
-use SparrowSDK\Handlers\CustomFieldHandler;
-use SparrowSDK\Handlers\InvoiceHandler;
-use SparrowSDK\Handlers\PaymentPlanHandler;
-use SparrowSDK\Handlers\RefundHandler;
-use SparrowSDK\Handlers\SaleHandler;
-use SparrowSDK\Handlers\VaultHandler;
-use SparrowSDK\Handlers\VoidHandler;
+use SparrowSDK\Service\Handlers\AirlineHandler;
+use SparrowSDK\Service\Handlers\AuthorizationHandler;
+use SparrowSDK\Service\Handlers\BalanceHandler;
+use SparrowSDK\Service\Handlers\CaptureHandler;
+use SparrowSDK\Service\Handlers\ChargebackHandler;
+use SparrowSDK\Service\Handlers\CreditHandler;
+use SparrowSDK\Service\Handlers\CustomFieldHandler;
+use SparrowSDK\Service\Handlers\InvoiceHandler;
+use SparrowSDK\Service\Handlers\PaymentPlanHandler;
+use SparrowSDK\Service\Handlers\RefundHandler;
+use SparrowSDK\Service\Handlers\SaleHandler;
+use SparrowSDK\Service\Handlers\VaultHandler;
+use SparrowSDK\Service\Handlers\VoidHandler;
 
 /**
  *
@@ -25,7 +25,7 @@ use SparrowSDK\Handlers\VoidHandler;
  * @link http://foresight.sparrowone.com/ Follows the Sparrow One Service API documentation
  *
  */
-class SparrowClient
+class SparrowServiceClient
 {
     public const API_BASE_URI = 'https://secure.sparrowone.com/Payments/Services_api.aspx';
 
@@ -48,7 +48,7 @@ class SparrowClient
     public $debugReturn = null;
 
     /**
-     * SparrowClient constructor
+     * SparrowServiceClient constructor
      *
      * @param  string $merchantKey An optional merchant key to set
      *

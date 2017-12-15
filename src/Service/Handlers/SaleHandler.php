@@ -1,35 +1,89 @@
 <?php
 
-namespace SparrowSDK\Handlers;
+namespace SparrowSDK\Service\Handlers;
 
-use SparrowSDK\SparrowClient;
-use SparrowSDK\Classes\MethodHandler;
+use SparrowSDK\Service\Classes\MethodHandler;
 
-class RefundHandler extends MethodHandler
+class SaleHandler extends MethodHandler
 {
     public function simpleCard($fields)
     {
-        $fields['transtype'] = 'refund';
+        $fields['transtype'] = 'sale';
 
         $supports = [
-            'transid' => true,
-            'amount'  => true
+            'cardnum' => true,
+            'cardexp' => true,
+            'amount'  => true,
+            'zip'     => true,
+
+            'cvv' => false
         ];
 
         return $this->quickRequest($fields, $supports);
     }
 
-    public function advancedCard($fields, $optAmounts = [])
+    public function advancedCard($fields, $skus = [], $optAmounts = [])
     {
-        $fields['transtype'] = 'refund';
+        $fields['transtype'] = 'sale';
 
         $supports = [
-            'transid' => true,
+            'cardnum' => true,
+            'cardexp' => true,
             'amount'  => true,
+            'zip'     => true, // TODO: check requirement
 
-            'sendtransreceipttobillemail' => false,
-            'sendtransreceipttoshipemail' => false,
-            'sendtransreceipttoemails'    => false
+            'cvv'                          => false,
+            'currency'                     => false,
+            'firstname'                    => false,
+            'lastname'                     => false,
+            'orderdesc'                    => false,
+            'orderid'                      => false,
+            'cardipaddress'                => false,
+            'tax'                          => false,
+            'shipamount'                   => false,
+            'ponumber'                     => false,
+            'company'                      => false,
+            'address1'                     => false,
+            'address2'                     => false,
+            'city'                         => false,
+            'state'                        => false,
+            'country'                      => false,
+            'phone'                        => false,
+            'fax'                          => false,
+            'email'                        => false,
+            'shipfirstname'                => false,
+            'shiplastname'                 => false,
+            'shipcompany'                  => false,
+            'shipaddress1'                 => false,
+            'shipaddress2'                 => false,
+            'shipcity'                     => false,
+            'shipstate'                    => false,
+            'shipzip'                      => false,
+            'shipcountry'                  => false,
+            'shipphone'                    => false,
+            'shipemail'                    => false,
+            'sendtransreceipttobillemail'  => false,
+            'sendtransreceipttoshippemail' => false,
+            'sendtransreceipttoemails'     => false,
+            'token'                        => false,
+            'saveclient'                   => false,
+            'updateclient'                 => false,
+            'groupid'                      => false,
+            'pinlessdebitindicator'        => false,
+            'sendpaymentdesc'              => false,
+            'electrcommind'                => false,
+            'securecavv'                   => false,
+            'securexid'                    => false,
+            'threedsecparesstatus'         => false,
+            'signatureverification'        => false,
+            'threedsecuretransactionid'    => false
+        ];
+
+        $skuSupports = [
+            'skunumber'   => false,
+            'description' => false,
+            'amount'      => false,
+            'quantity'    => false
         ];
 
         $optAmountSupports = [
@@ -39,6 +93,21 @@ class RefundHandler extends MethodHandler
         ];
 
         $this->enforce($fields, $supports);
+
+        $i = 1;
+        foreach ($skus as $sku) {
+            if (!count($sku)) {
+                continue;
+            }
+
+            $this->enforce($sku, $skuSupports);
+
+            foreach ($sku as $k => $v) {
+                $fields[$k . '_' . $i] = $v;
+            }
+
+            $i++;
+        }
 
         $i = 1;
         foreach ($optAmounts as $optAmount) {
@@ -59,9 +128,94 @@ class RefundHandler extends MethodHandler
         return $req->exec();
     }
 
+    public function simpleStarCard($fields)
+    {
+        $fields['transtype'] = 'sale';
+
+        $supports = [
+            'cardnum' => true,
+            'cardexp' => true,
+            'amount'  => true,
+            'zip'     => true, // TODO: check requirement
+            'CID'     => true
+        ];
+
+        return $this->quickRequest($fields, $supports);
+    }
+
+    public function advancedStarCard($fields, $skus = [])
+    {
+        $fields['transtype'] = 'sale';
+
+        $supports = [
+            'cardnum' => true,
+            'cardexp' => true,
+            'amount'  => true,
+            'zip'     => true, // TODO: check requirement
+            'CID'     => true,
+
+            'currency'                     => false,
+            'firstname'                    => false,
+            'lastname'                     => false,
+            'orderdesc'                    => false,
+            'orderid'                      => false,
+            'cardipaddress'                => false,
+            'tax'                          => false,
+            'shipamount'                   => false,
+            'ponumber'                     => false,
+            'company'                      => false,
+            'address1'                     => false,
+            'address2'                     => false,
+            'city'                         => false,
+            'state'                        => false,
+            'country'                      => false,
+            'phone'                        => false,
+            'fax'                          => false,
+            'email'                        => false,
+            'shipfirstname'                => false,
+            'shiplastname'                 => false,
+            'shipcompany'                  => false,
+            'shipaddress1'                 => false,
+            'shipaddress2'                 => false,
+            'shipcity'                     => false,
+            'shipstate'                    => false,
+            'shipzip'                      => false,
+            'shipcountry'                  => false,
+            'shipphone'                    => false,
+            'shipemail'                    => false
+        ];
+
+        $skuSupports = [
+            'skunumber'   => false,
+            'description' => false,
+            'amount'      => false,
+            'quantity'    => false
+        ];
+
+        $this->enforce($fields, $supports);
+
+        $i = 1;
+        foreach ($skus as $sku) {
+            if (!count($sku)) {
+                continue;
+            }
+
+            $this->enforce($sku, $skuSupports);
+
+            foreach ($sku as $k => $v) {
+                $fields[$k . '_' . $i] = $v;
+            }
+
+            $i++;
+        }
+
+        $req = new APIRequest($this->origin, '', 'POST', ['params' => $fields]);
+        return $req->exec();
+    }
+
     public function simpleAch($fields)
     {
-        $fields['transtype'] = 'refund';
+        $fields['transtype'] = 'sale';
 
         $supports = [
             'bankname'          => true,
@@ -79,7 +233,7 @@ class RefundHandler extends MethodHandler
 
     public function advancedAch($fields, $optAmounts = [])
     {
-        $fields['transtype'] = 'refund';
+        $fields['transtype'] = 'sale';
 
         $supports = [
             'bankname'          => true,
@@ -155,7 +309,7 @@ class RefundHandler extends MethodHandler
 
     public function simpleEcheck($fields)
     {
-        $fields['transtype'] = 'refund';
+        $fields['transtype'] = 'sale';
 
         $supports = [
             'bankname'       => true,
@@ -179,7 +333,7 @@ class RefundHandler extends MethodHandler
 
     public function advancedEcheck($fields, $optAmounts = [])
     {
-        $fields['transtype'] = 'refund';
+        $fields['transtype'] = 'sale';
 
         $supports = [
             'bankname'       => true,

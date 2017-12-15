@@ -1,8 +1,8 @@
 <?php
 
-namespace SparrowSDK\Classes;
+namespace SparrowSDK\Service\Classes;
 
-use SparrowSDK\SparrowClient;
+use SparrowSDK\SparrowServiceClient;
 
 use SparrowSDK\Exceptions\SDKUnsupportedRequestException;
 use SparrowSDK\Exceptions\SDKIncompleteRequestException;
@@ -19,9 +19,10 @@ abstract class MethodHandler
         'transtype' => false
     ];
 
-    protected $origin; // Reference to originating SparrowClient instance
+    // Reference to originating SparrowServiceClient instance
+    protected $origin;
 
-    public function __construct(SparrowClient $origin)
+    public function __construct(SparrowServiceClient $origin)
     {
         $this->origin = $origin;
     }

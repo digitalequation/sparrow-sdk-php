@@ -1,8 +1,9 @@
 <?php
 
-namespace SparrowSDK\Classes;
+namespace SparrowSDK\Service\Classes;
 
-use SparrowSDK\SparrowClient;
+use SparrowSDK\SparrowServiceClient;
+
 use SparrowSDK\Exceptions\SDKAuthErrorException;
 use SparrowSDK\Exceptions\SDKErrorResponseException;
 use SparrowSDK\Exceptions\SDKInvalidArgException;
@@ -32,11 +33,11 @@ class APIRequest
     /**
      * Constructs API request definition.
      *
-     * @param SparrowClient $origin   Originating SparrowClient reference
-     * @param string        $endpoint API endpoint
-     * @param string        $method   Method for cURL call - supports GET, POST, PUT or DELETE only
-     * @param mixed[]       $opts     (optional) Additional options to pass to request.
-     *                                Request parameters (if any) must be passed here
+     * @param SparrowServiceClient $origin   Originating SparrowServiceClient reference
+     * @param string               $endpoint API endpoint
+     * @param string               $method   Method for cURL call - supports GET, POST, PUT or DELETE only
+     * @param mixed[]              $opts     (optional) Additional options to pass to request.
+     *                                       Request parameters (if any) must be passed here
      *
      * @throws SDKInvalidArgException if $method is non-string.
      * @throws SDKInvalidArgException if unsupported $method is provided.
@@ -44,7 +45,7 @@ class APIRequest
      * @throws SDKInvalidArgException if $opts param is not an array.
      * @throws SDKAuthErrorException  if $origin->merchantKey is null (not set)
      */
-    public function __construct(SparrowClient $origin, $endpoint, $method, $opts = [])
+    public function __construct(SparrowServiceClient $origin, $endpoint, $method, $opts = [])
     {
         if (!is_string($method)) {
             throw new SDKInvalidArgException('`$method` must be a string');
@@ -98,7 +99,7 @@ class APIRequest
         $curlHeaders = [];
 
         // Set cURL call URL
-        $callUrl = SparrowClient::API_BASE_URI . $this->endpoint;
+        $callUrl = SparrowServiceClient::API_BASE_URI . $this->endpoint;
 
         // Set request method
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $this->method);

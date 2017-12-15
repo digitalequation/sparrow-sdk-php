@@ -1,9 +1,8 @@
 <?php
 
-namespace SparrowSDK\Handlers;
+namespace SparrowSDK\Service\Handlers;
 
-use SparrowSDK\SparrowClient;
-use SparrowSDK\Classes\MethodHandler;
+use SparrowSDK\Service\Classes\MethodHandler;
 
 class InvoiceHandler extends MethodHandler
 {

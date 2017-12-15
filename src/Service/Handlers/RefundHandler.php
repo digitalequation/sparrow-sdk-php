@@ -1,19 +1,66 @@
 <?php
 
-namespace SparrowSDK\Handlers;
+namespace SparrowSDK\Service\Handlers;
 
-use SparrowSDK\SparrowClient;
-use SparrowSDK\Classes\MethodHandler;
+use SparrowSDK\Service\Classes\MethodHandler;
 
-class CreditHandler extends MethodHandler
+class RefundHandler extends MethodHandler
 {
-    //
-    // TODO Check if there are also credit methods for Credit Card
-    //
+    public function simpleCard($fields)
+    {
+        $fields['transtype'] = 'refund';
+
+        $supports = [
+            'transid' => true,
+            'amount'  => true
+        ];
+
+        return $this->quickRequest($fields, $supports);
+    }
+
+    public function advancedCard($fields, $optAmounts = [])
+    {
+        $fields['transtype'] = 'refund';
+
+        $supports = [
+            'transid' => true,
+            'amount'  => true,
+
+            'sendtransreceipttobillemail' => false,
+            'sendtransreceipttoshipemail' => false,
+            'sendtransreceipttoemails'    => false
+        ];
+
+        $optAmountSupports = [
+            'opt_amount_type'       => false,
+            'opt_amount_value'      => false,
+            'opt_amount_percentage' => false
+        ];
+
+        $this->enforce($fields, $supports);
+
+        $i = 1;
+        foreach ($optAmounts as $optAmount) {
+            if (!count($optAmount)) {
+                continue;
+            }
+
+            $this->enforce($optAmount, $optAmountSupports);
+
+            foreach ($optAmount as $k => $v) {
+                $fields[$k . '_' . $i] = $v;
+            }
+
+            $i++;
+        }
+
+        $req = new APIRequest($this->origin, '', 'POST', ['params' => $fields]);
+        return $req->exec();
+    }
 
     public function simpleAch($fields)
     {
-        $fields['transtype'] = 'credit';
+        $fields['transtype'] = 'refund';
 
         $supports = [
             'bankname'          => true,
@@ -31,7 +78,7 @@ class CreditHandler extends MethodHandler
 
     public function advancedAch($fields, $optAmounts = [])
     {
-        $fields['transtype'] = 'credit';
+        $fields['transtype'] = 'refund';
 
         $supports = [
             'bankname'          => true,
@@ -107,7 +154,7 @@ class CreditHandler extends MethodHandler
 
     public function simpleEcheck($fields)
     {
-        $fields['transtype'] = 'credit';
+        $fields['transtype'] = 'refund';
 
         $supports = [
             'bankname'       => true,
@@ -131,7 +178,7 @@ class CreditHandler extends MethodHandler
 
     public function advancedEcheck($fields, $optAmounts = [])
     {
-        $fields['transtype'] = 'credit';
+        $fields['transtype'] = 'refund';
 
         $supports = [
             'bankname'       => true,
@@ -196,20 +243,5 @@ class CreditHandler extends MethodHandler
 
         $req = new APIRequest($this->origin, '', 'POST', ['params' => $fields]);
         return $req->exec();
-    }
-
-    public function simpleEwallet($fields)
-    {
-        $fields['transtype'] = 'credit';
-
-        $supports = [
-            'ewalletaccount' => true,
-            'amount'         => true,
-
-            'ewallettype' => false,
-            'currency'    => false
-        ];
-
-        return $this->quickRequest($fields, $supports);
     }
 }
