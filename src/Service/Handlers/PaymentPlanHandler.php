@@ -80,8 +80,7 @@ class PaymentPlanHandler extends MethodHandler
             $i++;
         }
 
-        $req = new APIRequest($this->origin, '', 'POST', ['params' => $fields]);
-        return $req->exec();
+        return $this->quickRequest($fields);
     }
 
     public function update($fields)
@@ -171,8 +170,7 @@ class PaymentPlanHandler extends MethodHandler
             $i++;
         }
 
-        $req = new APIRequest($this->origin, '', 'POST', ['params' => $fields]);
-        return $req->exec();
+        return $this->quickRequest($fields);
     }
 
     public function updateSequence($fields, $sequences = [])
@@ -213,8 +211,7 @@ class PaymentPlanHandler extends MethodHandler
             $i++;
         }
 
-        $req = new APIRequest($this->origin, '', 'POST', ['params' => $fields]);
-        return $req->exec();
+        return $this->quickRequest($fields);
     }
 
     public function deleteSequence($fields, $sequences = [])
@@ -247,8 +244,7 @@ class PaymentPlanHandler extends MethodHandler
             $i++;
         }
 
-        $req = new APIRequest($this->origin, '', 'POST', ['params' => $fields]);
-        return $req->exec();
+        return $this->quickRequest($fields);
     }
 
     public function delete($fields)

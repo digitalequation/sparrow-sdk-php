@@ -45,8 +45,7 @@ class InvoiceHandler extends MethodHandler
             $i++;
         }
 
-        $req = new APIRequest($this->origin, '', 'POST', ['params' => $fields]);
-        return $req->exec();
+        return $this->quickRequest($fields);
     }
 
     public function update($fields, $invoiceItems = [])
@@ -89,8 +88,7 @@ class InvoiceHandler extends MethodHandler
             $i++;
         }
 
-        $req = new APIRequest($this->origin, '', 'POST', ['params' => $fields]);
-        return $req->exec();
+        return $this->quickRequest($fields);
     }
 
     public function get($fields)

@@ -30,17 +30,18 @@ abstract class MethodHandler
     /**
      * Shortcut helper function (since all Sparrow Services API calls are POST and share a single endpoint)
      *
-     * @param  mixed[] $fields   forwards to `enforce()` and API request exec
-     * @param  mixed[] $supports forwards to `enforce()`
+     * @param  mixed[]         $fields   forwards to `enforce()` (if applicable) and API request exec
+     * @param  mixed[]|boolean $supports forwards to `enforce()` or ignore if set to false
      *
      * @return mixed[]|boolean @see APIRequest@exec
      */
-    protected function quickRequest($fields, $supports)
+    protected function quickRequest($fields, $supports = false)
     {
-        $this->enforce($fields, $supports);
+        if (is_array($supports)) {
+            $this->enforce($fields, $supports);
+        }
 
-        $req = new APIRequest($this->origin, '', 'POST', ['params' => $fields]);
-        return $req->exec();
+        return (new APIRequest($this->origin, '', 'POST', ['params' => $fields]))->exec();
     }
 
     /**

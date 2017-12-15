@@ -124,8 +124,7 @@ class SaleHandler extends MethodHandler
             $i++;
         }
 
-        $req = new APIRequest($this->origin, '', 'POST', ['params' => $fields]);
-        return $req->exec();
+        return $this->quickRequest($fields);
     }
 
     public function simpleStarCard($fields)
@@ -209,8 +208,7 @@ class SaleHandler extends MethodHandler
             $i++;
         }
 
-        $req = new APIRequest($this->origin, '', 'POST', ['params' => $fields]);
-        return $req->exec();
+        return $this->quickRequest($fields);
     }
 
     public function simpleAch($fields)
@@ -303,8 +301,7 @@ class SaleHandler extends MethodHandler
             $i++;
         }
 
-        $req = new APIRequest($this->origin, '', 'POST', ['params' => $fields]);
-        return $req->exec();
+        return $this->quickRequest($fields);
     }
 
     public function simpleEcheck($fields)
@@ -396,8 +393,7 @@ class SaleHandler extends MethodHandler
             $i++;
         }
 
-        $req = new APIRequest($this->origin, '', 'POST', ['params' => $fields]);
-        return $req->exec();
+        return $this->quickRequest($fields);
     }
 
     public function simpleFiserv($fields)

@@ -96,8 +96,7 @@ class VaultHandler extends MethodHandler
             $i++;
         }
 
-        $req = new APIRequest($this->origin, '', 'POST', ['params' => $fields]);
-        return $req->exec();
+        return $this->quickRequest($fields);
     }
 
     public function updateCustomer($fields)
@@ -199,8 +198,7 @@ class VaultHandler extends MethodHandler
             $i++;
         }
 
-        $req = new APIRequest($this->origin, '', 'POST', ['params' => $fields]);
-        return $req->exec();
+        return $this->quickRequest($fields);
     }
 
     public function updatePaymentType($fields, $payTypes = [])
@@ -267,8 +265,7 @@ class VaultHandler extends MethodHandler
             $i++;
         }
 
-        $req = new APIRequest($this->origin, '', 'POST', ['params' => $fields]);
-        return $req->exec();
+        return $this->quickRequest($fields);
     }
 
     public function deletePaymentType($fields, $payTypes = [])
@@ -301,8 +298,7 @@ class VaultHandler extends MethodHandler
             $i++;
         }
 
-        $req = new APIRequest($this->origin, '', 'POST', ['params' => $fields]);
-        return $req->exec();
+        return $this->quickRequest($fields);
     }
 
     public function deleteCustomer($fields)
