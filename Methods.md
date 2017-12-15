@@ -92,12 +92,12 @@ transtype=credit
 _eWallet Simple Credit_ = ->credit->simpleEwallet()
 
 ===
-### Fiserv (same as credit card sale? Maybe add an alias...) = ->sale
+### Fiserv = ->sale
 ===
 transtype=sale
-_Fiserv Simple Sale_   = ->sale->simpleCard()
+_Fiserv Simple Sale_   = ->sale->simpleFiserv()
 transtype=sale
-_Advanced Fiserv Sale_ = ->sale->advancedCard()
+_Advanced Fiserv Sale_ = ->sale->advancedFiserv()
 
 ===
 ### Chargeback Entry = ->chargeback
@@ -157,18 +157,18 @@ _Decrypt Payment Type_               = ->vault->decryptPaymentType()
 _Tokenized Payments_
 
 ===
-### Creating Custom Payment Plans = ->paymentPlan `???`
+### Creating Custom Payment Plans = ->paymentPlan
 ===
 transtype=addplan
 _Creating a Payment Plan_                = ->paymentPlan->add()
 transtype=updateplan
 _Updating a Payment Plan_                = ->paymentPlan->update()
 transtype=
-_Building a Sequence_                    = ->paymentPlan->buildSequence()
+_Building a Sequence_
 transtype=
-_Notification Settings_                  = ->paymentPlan->notificationSettings()
+_Notification Settings_
 transtype=
-_Adding or Updating a Sequence_          = `???`
+_Adding or Updating a Sequence_
 transtype=
     _Add Sequence_                       = ->paymentPlan->addSequence()
 transtype=
