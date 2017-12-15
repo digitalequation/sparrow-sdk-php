@@ -14,6 +14,7 @@ use SparrowSDK\Merchant\Handlers\TransactionHandler;
  * Sparrow PHP Client for Merchant Public API + Merchant Transaction Query API
  *
  * @link http://sparrowone.com/wp-content/uploads/2016/09/SPARROW-Merchant-Public-API-v3.2.pdf
+ * @link http://sparrowone.com/wp-content/uploads/2017/03/SPARROW-Merchant-Public-Services-Transaction-Query-API.pdf
  *
  */
 class SparrowMerchantClient
