@@ -399,4 +399,16 @@ class SaleHandler extends MethodHandler
         $req = new APIRequest($this->origin, '', 'POST', ['params' => $fields]);
         return $req->exec();
     }
+
+    public function simpleFiserv($fields)
+    {
+        // It appears that Fiserv transactions have the same call format as standard Credit Card transactions
+        return $this->simpleCard($fields)
+    }
+
+    public function advancedFiserv($fields, $optAmounts = [])
+    {
+        // It appears that Fiserv transactions have the same call format as standard Credit Card transactions
+        return $this->advancedCard($fields, [], $optAmounts)
+    }
 }
