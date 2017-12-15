@@ -1,6 +1,7 @@
 # SparrowOne  SDK [PHP]
 
 This repository contains a full PHP client implementation for the following APIs:
+
 - **SPARROW Services API** (as `SparrowServiceClient`)
 - **SPARROW Merchant Public API** (as `SparrowMerchantClient`)
 - **SPARROW Merchant Transaction Query API** (as `SparrowMerchantClient`)
@@ -14,7 +15,7 @@ This repository contains a full PHP client implementation for the following APIs
 
 ### 2. Obtain a Sparrow merchant key
 
-### `⚠ Warning`
+### `⚠ Warning ⚠`
 
 In order to avoid the risk of running live transactions and payments while testing, it is vital to obtain and use a merchant key associated with a merchant account that has its integration mode set to either `Test` or `Development`.
 
