@@ -29,7 +29,7 @@ class SDKServiceProvider extends ServiceProvider
      */
     protected function setupConfig(Application $app)
     {
-        $source = realpath(__DIR__ . '/../config/sparrow-sdk.php');
+        $source = realpath(__DIR__ . '/Config/sparrow-sdk.php');
 
         if ($app instanceof LaravelApplication && $app->runningInConsole()) {
             $this->publishes([$source => config_path('sparrow-sdk.php')]);
