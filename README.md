@@ -92,7 +92,7 @@ SparrowSDK\Laravel\SDKServiceProvider::class,
 Then add these lines to the `aliases` array:
 
 ```php
-'SparrowService' => SparrowSDK\Laravel\Facades\SparrowService::class,
+'SparrowService'  => SparrowSDK\Laravel\Facades\SparrowService::class,
 'SparrowMerchant' => SparrowSDK\Laravel\Facades\SparrowMerchant::class,
 ```
 
