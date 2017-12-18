@@ -82,13 +82,59 @@ $ composer update
 
 ## [SparrowServiceClient]
 
-### Creating a new instance
+#### Creating a new instance
+
+```php
+// 1. Import the service client class
+use SparrowSDK\SparrowServiceClient;
+
+// 2A. Blank instancing, add merchant key later
+$sparrowSC = new SparrowServiceClient;
+$sparrowSC->setMerchantKey('mmmmmmmmmmmmmmmmmmmmmmmm');
+
+// 2B. Instancing with a merchant key
+$sparrowSC = new SparrowServiceClient('mmmmmmmmmmmmmmmmmmmmmmmm');
+
+// 3. Get currently attached merchant key
+$mkey = $sparrowSC->getMerchantKey();
+```
 
 > TODO
 
 ## [SparrowMerchantClient]
 
-### Creating a new instance
+#### Creating a new instance
+
+```php
+// 1. Import the merchant client class
+use SparrowSDK\SparrowMerchantClient;
+
+// 2A. Blank instancing, add merchant key later
+$sparrowMC = new SparrowMerchantClient;
+$sparrowMC->setMerchantKey('mmmmmmmmmmmmmmmmmmmmmmmm');
+
+// 2B. Instancing with a merchant key
+$sparrowMC = new SparrowMerchantClient('mmmmmmmmmmmmmmmmmmmmmmmm');
+
+// 3. Get currently attached merchant key
+$mkey = $sparrowMC->getMerchantKey();
+
+// 4. Set user authentication token
+$sparrowMC->setAuthToken('aaaaaaaaaaaaaaaaaaaaaaaa');
+
+// 5. Get currently attached auth token
+$authToken = $sparrowMC->getAuthToken();
+```
+
+#### Methods
+
+- **->auth**
+    - `->getToken($username, $password)` - This action is used to obtain the authentication token for the specified user
+- **->terminal**
+    - `->settle($token)` - This action is used to settle all transactions for the specified account which require settlement. **[requires an attached merchant key]** **[requires an attached auth token]**
+- **->transaction**
+    - `->getAll($fields = [])` - This action is used to retrieve a list of transactions. **[requires an attached auth token]**
+    - `->getDetails($transactionId)` - This action is used to retrieve details about a particular transaction. **[requires an attached auth token]**
 
 > TODO
 
