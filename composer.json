@@ -30,5 +30,8 @@
         "psr-4": {
             "SparrowSDK\\Tests\\": "tests"
         }
+    },
+    "suggest": {
+        "laravel/framework": "Allows the use of Laravel specific Facades"
     }
 }
