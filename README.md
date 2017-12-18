@@ -99,7 +99,78 @@ $sparrowSC = new SparrowServiceClient('mmmmmmmmmmmmmmmmmmmmmmmm');
 $mkey = $sparrowSC->getMerchantKey();
 ```
 
-> TODO
+#### Methods
+
+- **->airline**
+    - `->passengerSale($fields)` - __Not implemented !__
+- **->authorization**
+    - `->simple($fields)`
+    - `->verifyAccount($fields)`
+- **->balance**
+    - `->inquire($fields)`
+- **->capture**
+    - `->simple($fields)`
+    - `->simpleOffline($fields)`
+    - `->advanced($fields, $optAmounts = [])`
+- **->chargeback**
+    - `->markTransaction($fields)`
+- **->credit**
+    - `->simpleAch($fields)`
+    - `->advancedAch($fields, $optAmounts = [])`
+    - `->simpleEcheck($fields)`
+    - `->advancedEcheck($fields, $optAmounts = [])`
+    - `->simpleEwallet($fields)`
+- **->customField**
+    - `->decrypt($fields)`
+- **->invoice**
+    - `->create($fields, $invoiceItems = [])`
+    - `->update($fields, $invoiceItems = [])`
+    - `->get($fields)`
+    - `->cancel($fields)`
+    - `->cancelByCustomer($fields)`
+    - `->payWithCreditCard($fields)`
+    - `->payWithBankAccount($fields)`
+- **->paymentPlan**
+    - `->add($fields, $sequences = [])`
+    - `->update($fields)`
+    - `->addSequence($fields, $sequences = [])`
+    - `->updateSequence($fields, $sequences = [])`
+    - `->deleteSequence($fields, $sequences = [])`
+    - `->delete($fields)`
+    - `->assignToCustomer($fields)`
+    - `->updateAssignment($fields)`
+    - `->cancelAssignment($fields)`
+- **->refund**
+    - `->simpleCard($fields)`
+    - `->advancedCard($fields, $optAmounts = [])`
+    - `->simpleAch($fields)`
+    - `->advancedAch($fields, $optAmounts = [])`
+    - `->simpleEcheck($fields)`
+    - `->advancedEcheck($fields, $optAmounts = [])`
+- **->sale**
+    - `->simpleCard($fields)`
+    - `->advancedCard($fields, $skus = [], $optAmounts = [])`
+    - `->simpleStarCard($fields)`
+    - `->advancedStarCard($fields, $skus = [])`
+    - `->simpleAch($fields)`
+    - `->advancedAch($fields, $optAmounts = [])`
+    - `->simpleEcheck($fields)`
+    - `->advancedEcheck($fields, $optAmounts = [])`
+    - `->simpleFiserv($fields)` - Alias for `->simpleCard($fields)`
+    - `->advancedFiserv($fields, $optAmounts = [])` - Alias for `->advancedCard($fields, [], $optAmounts)`
+- **->vault**
+    - `->addCustomer($fields, $payTypes = [])`
+    - `->updateCustomer($fields)`
+    - `->addPaymentType($fields, $payTypes = [])`
+    - `->updatePaymentType($fields, $payTypes = [])`
+    - `->deletePaymentType($fields, $payTypes = [])`
+    - `->deleteCustomer($fields)`
+    - `->getCustomer($fields)`
+    - `->getPaymentType($fields)`
+    - `->decryptPaymentType($fields)`
+- **->void**
+    - `->simple($fields)`
+    - `->advanced($fields)`
 
 ## [SparrowMerchantClient]
 
@@ -135,8 +206,6 @@ $authToken = $sparrowMC->getAuthToken();
 - **->transaction**
     - `->getAll($fields = [])` - This action is used to retrieve a list of transactions. **[requires an attached auth token]**
     - `->getDetails($transactionId)` - This action is used to retrieve details about a particular transaction. **[requires an attached auth token]**
-
-> TODO
 
 ## Useful resources
 
