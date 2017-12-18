@@ -9,7 +9,7 @@ use SparrowSDK\Exceptions\SDKInvalidArgException;
 class AuthHandler extends MethodHandler
 {
     /**
-     * This action is used to obtain the authentication token for the specified user.
+     * This action is used to obtain an authentication token for the specified user.
      * @see Merchant Public API pg 7,8
      * @see Merchant Transaction Query API pg 8
      *

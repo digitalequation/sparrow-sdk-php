@@ -222,9 +222,9 @@ $authToken = $sparrowMC->getAuthToken();
 #### Methods
 
 - **->auth**
-    - `->getToken($username, $password)` - This action is used to obtain the authentication token for the specified user
+    - `->getToken($username, $password)` - This action is used to obtain an authentication token for the specified user
 - **->terminal**
-    - `->settle($token)` - This action is used to settle all transactions for the specified account which require settlement. **[requires an attached merchant key]** **[requires an attached auth token]**
+    - `->settle()` - This action is used to settle all transactions for the specified account which require settlement. **[requires an attached merchant key]** **[requires an attached auth token]**
 - **->transaction**
     - `->getAll($fields = [])` - This action is used to retrieve a list of transactions. **[requires an attached auth token]**
     - `->getDetails($transactionId)` - This action is used to retrieve details about a particular transaction. **[requires an attached auth token]**
