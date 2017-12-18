@@ -12,6 +12,7 @@ This repository contains a full PHP client implementation for the following APIs
 
 - PHP >= 7.0
 - Composer
+- Laravel >= 5.3 (optional)
 
 ### 2. Obtain a Sparrow merchant key
 
@@ -82,7 +83,7 @@ $ composer update
 
 ### 4. Laravel integration
 
-Once Composer has installed the package add this line of code to the `providers` array located in your `config/app.php` file:
+Once Composer has installed the package, add this line of code to the `providers` array located in your `config/app.php` file:
 
 ```php
 SparrowSDK\Laravel\SDKServiceProvider::class,
@@ -97,7 +98,7 @@ Then add these lines to the `aliases` array:
 
 ### 5. Laravel configuration publishing
 
-Run `php artisan vendor:publish` to publish this package configuration. Afterwards you can edit `config/sparrow-sdk.php` to suit your needs.
+Run `php artisan vendor:publish` to publish this package's configuration. Afterwards you can edit `config/sparrow-sdk.php` to suit your needs.
 
 By default, the configuration file makes use of the `SPARROW_MKEY` env variable. If this variable is not set, then the Facade instance will be created with no attached merchant key.
 
