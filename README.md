@@ -80,6 +80,27 @@ Project dependencies must be updated after any config changes:
 $ composer update
 ```
 
+### 4. Laravel integration
+
+Once Composer has installed the package add this line of code to the `providers` array located in your `config/app.php` file:
+
+```php
+SparrowSDK\Laravel\SDKServiceProvider::class,
+```
+
+Then add these lines to the `aliases` array:
+
+```php
+'SparrowService' => SparrowSDK\Laravel\Facades\SparrowService::class,
+'SparrowMerchant' => SparrowSDK\Laravel\Facades\SparrowMerchant::class,
+```
+
+### 5. Laravel configuration publishing
+
+Run `php artisan vendor:publish` to publish this package configuration. Afterwards you can edit `config/sparrow-sdk.php` to suit your needs.
+
+By default, the configuration file makes use of the `SPARROW_MKEY` env variable. If this variable is not set, then the Facade instance will be created with no attached merchant key.
+
 ## [SparrowServiceClient]
 
 #### Creating a new instance
