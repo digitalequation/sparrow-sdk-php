@@ -145,19 +145,19 @@ class VaultHandler extends MethodHandler
         $payTypeSupports = [
             // Common:
             'paytype'   => true,
-            'firstname' => true,
-            'lastname'  => true,
 
-            'company'  => false,
-            'address1' => false,
-            'address2' => false,
-            'city'     => false,
-            'state'    => false,
-            'zip'      => false,
-            'country'  => false,
-            'phone'    => false,
-            'email'    => false,
-            'payno'    => false,
+            'firstname' => false,
+            'lastname'  => false,
+            'company'   => false,
+            'address1'  => false,
+            'address2'  => false,
+            'city'      => false,
+            'state'     => false,
+            'zip'       => false,
+            'country'   => false,
+            'phone'     => false,
+            'email'     => false,
+            'payno'     => false,
 
             // Card & Star Card:
             'cardnum' => false,
