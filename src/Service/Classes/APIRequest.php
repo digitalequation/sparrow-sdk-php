@@ -192,7 +192,8 @@ class APIRequest
             throw new SDKUnexpectedResponseException($curlData);
         }
 
-        // NOTE: Special case - for some reason, transactions flagged for review return with blank `codedescription`
+        // NOTE Inconsistency:
+        // For some reason, transactions flagged for review return with blank `codedescription`
         if (substr($responseData['textresponse'], 0, 18) == 'Flagged for Review') {
             $responseData['codedescription'] = 'Flagged For Review';
         }
