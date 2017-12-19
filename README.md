@@ -89,11 +89,10 @@ Once Composer has installed the package, add this line of code to the `providers
 SparrowSDK\Laravel\SDKServiceProvider::class,
 ```
 
-Then add these lines to the `aliases` array:
+Then add this line to the `aliases` array:
 
 ```php
-'SparrowService'  => SparrowSDK\Laravel\Facades\SparrowService::class,
-'SparrowMerchant' => SparrowSDK\Laravel\Facades\SparrowMerchant::class,
+'Sparrow'=> SparrowSDK\Laravel\Facades\Sparrow::class,
 ```
 
 ### 5. Laravel configuration publishing

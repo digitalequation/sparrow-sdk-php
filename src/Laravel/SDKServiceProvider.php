@@ -5,6 +5,8 @@ namespace SparrowSDK\Laravel;
 use SparrowSDK\SparrowServiceClient;
 use SparrowSDK\SparrowMerchantClient;
 
+use SparrowSDK\Laravel\SparrowGateway;
+
 use Illuminate\Contracts\Container\Container as Application;
 use Illuminate\Foundation\Application as LaravelApplication;
 use Illuminate\Support\ServiceProvider;
@@ -43,9 +45,25 @@ class SDKServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->registerSparrowService($this->app);
-        $this->registerSparrowMerchant($this->app);
+        $this->registerSparrowGateway($this->app);
 
+        // $this->registerSparrowService($this->app);
+        // $this->registerSparrowMerchant($this->app);
+    }
+
+    /**
+     * Register the Sparrow gateway with the IoC container
+     *
+     * @param \Illuminate\Contracts\Container\Container $app
+     */
+    public function registerSparrowGateway(Application $app)
+    {
+        $app->singleton('sparrow-sdk', function ($app) {
+            $config = $app['config']->get('sparrow-sdk');
+            $mkey   = $config['mkey'] ?: null;
+
+            return new SparrowGateway($mkey);
+        });
     }
 
     /**
@@ -95,6 +113,10 @@ class SDKServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return ['sparrow-sdk.service', 'sparrow-sdk.merchant'];
+        return [
+            'sparrow-sdk',
+            // 'sparrow-sdk.service',
+            // 'sparrow-sdk.merchant'
+        ];
     }
 }
