@@ -15,6 +15,7 @@ class VaultHandler extends MethodHandler
             'lastname'  => true,
 
             // 'token'           => false, // NOTE: confirm this field should not exist in add scope (poor docs)
+            'company'         => false,
             'customerid'      => false,
             'note'            => false,
             'address1'        => false,
@@ -108,6 +109,7 @@ class VaultHandler extends MethodHandler
 
             'firstname'       => false,
             'lastname'        => false,
+            'company'         => false,
             'address1'        => false,
             'address2'        => false,
             'city'            => false,
