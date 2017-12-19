@@ -407,4 +407,16 @@ class SaleHandler extends MethodHandler
         // It appears that Fiserv transactions have the same call format as standard Credit Card transactions
         return $this->advancedCard($fields, [], $optAmounts)
     }
+
+    public function simpleToken($fields)
+    {
+        $fields['transtype'] = 'sale';
+
+        $supports = [
+            'token'  => true,
+            'amount' => true
+        ];
+
+        return $this->quickRequest($fields, $supports);
+    }
 }

@@ -215,6 +215,7 @@ $mkey = $sparrowSC->getMerchantKey();
     - `->advancedEcheck($fields, $optAmounts = [])`
     - `->simpleFiserv($fields)` - Alias for `->simpleCard($fields)`
     - `->advancedFiserv($fields, $optAmounts = [])` - Alias for `->advancedCard($fields, [], $optAmounts)`
+    - `->simpleToken($fields)`
 - **->vault**
     - `->addCustomer($fields, $payTypes = [])`
     - `->updateCustomer($fields)`
