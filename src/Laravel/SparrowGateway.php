@@ -2,8 +2,8 @@
 
 namespace SparrowSDK\Laravel;
 
-use SparrowSDK\SparrowServiceClient;
 use SparrowSDK\SparrowMerchantClient;
+use SparrowSDK\SparrowServiceClient;
 
 use SparrowSDK\Exceptions\SDKInvalidArgException;
 
@@ -12,8 +12,8 @@ use SparrowSDK\Exceptions\SDKInvalidArgException;
  */
 class SparrowGateway
 {
-    public $service;
     public $merchant;
+    public $service;
 
     /**
      * SparrowGateway constructor
@@ -22,7 +22,7 @@ class SparrowGateway
      */
     public function __construct($merchantKey = null)
     {
-        $this->service  = new SparrowServiceClient($merchantKey);
         $this->merchant = new SparrowMerchantClient($merchantKey);
+        $this->service  = new SparrowServiceClient($merchantKey);
     }
 }
