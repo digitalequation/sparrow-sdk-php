@@ -45,10 +45,10 @@ class SDKServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->registerSparrowGateway($this->app);
+        // $this->registerSparrowGateway($this->app);
 
-        // $this->registerSparrowService($this->app);
-        // $this->registerSparrowMerchant($this->app);
+        $this->registerSparrowService($this->app);
+        $this->registerSparrowMerchant($this->app);
     }
 
     /**
@@ -114,9 +114,9 @@ class SDKServiceProvider extends ServiceProvider
     public function provides()
     {
         return [
-            'sparrow-sdk',
-            // 'sparrow-sdk.service',
-            // 'sparrow-sdk.merchant'
+            // 'sparrow-sdk',
+            'sparrow-sdk.service',
+            'sparrow-sdk.merchant'
         ];
     }
 }
