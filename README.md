@@ -2,9 +2,9 @@
 
 This repository contains a full PHP client implementation for the following APIs:
 
-- **SPARROW Services API** (as `SparrowServiceClient`)
 - **SPARROW Merchant Public API** (as `SparrowMerchantClient`)
 - **SPARROW Merchant Transaction Query API** (as `SparrowMerchantClient`)
+- **SPARROW Services API** (as `SparrowServiceClient`)
 
 ## Pre-requisites
 
@@ -92,8 +92,8 @@ SparrowSDK\Laravel\SDKServiceProvider::class,
 Then add these lines to the `aliases` array:
 
 ```php
-'SparrowService'  => SparrowSDK\Laravel\Facades\SparrowService::class,
 'SparrowMerchant' => SparrowSDK\Laravel\Facades\SparrowMerchant::class,
+'SparrowService'  => SparrowSDK\Laravel\Facades\SparrowService::class,
 ```
 
 ### 5. Laravel configuration publishing
@@ -101,6 +101,41 @@ Then add these lines to the `aliases` array:
 Run `php artisan vendor:publish` to publish this package's configuration. Afterwards you can edit `config/sparrow-sdk.php` to suit your needs.
 
 By default, the configuration file makes use of the `SPARROW_MKEY` env variable. If this variable is not set, then the Facade instance will be created with no attached merchant key.
+
+## [SparrowMerchantClient]
+
+#### Creating a new instance
+
+```php
+// 1. Import the merchant client class
+use SparrowSDK\SparrowMerchantClient;
+
+// 2A. Blank instancing, add merchant key later
+$sparrowMC = new SparrowMerchantClient;
+$sparrowMC->setMerchantKey('mmmmmmmmmmmmmmmmmmmmmmmm');
+
+// 2B. Instancing with a merchant key
+$sparrowMC = new SparrowMerchantClient('mmmmmmmmmmmmmmmmmmmmmmmm');
+
+// 3. Get currently attached merchant key
+$mkey = $sparrowMC->getMerchantKey();
+
+// 4. Set user authentication token
+$sparrowMC->setAuthToken('aaaaaaaaaaaaaaaaaaaaaaaa');
+
+// 5. Get currently attached auth token
+$authToken = $sparrowMC->getAuthToken();
+```
+
+#### Methods
+
+- **->auth**
+    - `->getToken($username, $password)` - This action is used to obtain an authentication token for the specified user
+- **->terminal**
+    - `->settle()` - This action is used to settle all transactions for the specified account which require settlement. **[requires an attached merchant key]** **[requires an attached auth token]**
+- **->transaction**
+    - `->getAll($fields = [])` - This action is used to retrieve a list of transactions. **[requires an attached auth token]**
+    - `->getDetails($transactionId)` - This action is used to retrieve details about a particular transaction. **[requires an attached auth token]**
 
 ## [SparrowServiceClient]
 
@@ -193,41 +228,6 @@ $mkey = $sparrowSC->getMerchantKey();
 - **->void**
     - `->simple($fields)`
     - `->advanced($fields)`
-
-## [SparrowMerchantClient]
-
-#### Creating a new instance
-
-```php
-// 1. Import the merchant client class
-use SparrowSDK\SparrowMerchantClient;
-
-// 2A. Blank instancing, add merchant key later
-$sparrowMC = new SparrowMerchantClient;
-$sparrowMC->setMerchantKey('mmmmmmmmmmmmmmmmmmmmmmmm');
-
-// 2B. Instancing with a merchant key
-$sparrowMC = new SparrowMerchantClient('mmmmmmmmmmmmmmmmmmmmmmmm');
-
-// 3. Get currently attached merchant key
-$mkey = $sparrowMC->getMerchantKey();
-
-// 4. Set user authentication token
-$sparrowMC->setAuthToken('aaaaaaaaaaaaaaaaaaaaaaaa');
-
-// 5. Get currently attached auth token
-$authToken = $sparrowMC->getAuthToken();
-```
-
-#### Methods
-
-- **->auth**
-    - `->getToken($username, $password)` - This action is used to obtain an authentication token for the specified user
-- **->terminal**
-    - `->settle()` - This action is used to settle all transactions for the specified account which require settlement. **[requires an attached merchant key]** **[requires an attached auth token]**
-- **->transaction**
-    - `->getAll($fields = [])` - This action is used to retrieve a list of transactions. **[requires an attached auth token]**
-    - `->getDetails($transactionId)` - This action is used to retrieve details about a particular transaction. **[requires an attached auth token]**
 
 ## Useful resources
 

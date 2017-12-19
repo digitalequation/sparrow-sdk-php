@@ -2,8 +2,8 @@
 
 namespace SparrowSDK\Laravel;
 
-use SparrowSDK\SparrowServiceClient;
 use SparrowSDK\SparrowMerchantClient;
+use SparrowSDK\SparrowServiceClient;
 
 use SparrowSDK\Laravel\SparrowGateway;
 
@@ -47,8 +47,8 @@ class SDKServiceProvider extends ServiceProvider
     {
         // $this->registerSparrowGateway($this->app);
 
-        $this->registerSparrowService($this->app);
         $this->registerSparrowMerchant($this->app);
+        $this->registerSparrowService($this->app);
     }
 
     /**
@@ -63,26 +63,6 @@ class SDKServiceProvider extends ServiceProvider
             $mkey   = $config['mkey'] ?: null;
 
             return new SparrowGateway($mkey);
-        });
-    }
-
-    /**
-     * Register the Sparrow Service Client with the IoC container
-     *
-     * @param \Illuminate\Contracts\Container\Container $app
-     */
-    public function registerSparrowService(Application $app)
-    {
-        $app->singleton('sparrow-sdk.service', function ($app) {
-            $config = $app['config']->get('sparrow-sdk');
-
-            $serviceClient = new SparrowServiceClient;
-
-            if (!empty($config['mkey'])) {
-                $serviceClient->setMerchantKey($config['mkey']);
-            }
-
-            return $serviceClient;
         });
     }
 
@@ -107,6 +87,26 @@ class SDKServiceProvider extends ServiceProvider
     }
 
     /**
+     * Register the Sparrow Service Client with the IoC container
+     *
+     * @param \Illuminate\Contracts\Container\Container $app
+     */
+    public function registerSparrowService(Application $app)
+    {
+        $app->singleton('sparrow-sdk.service', function ($app) {
+            $config = $app['config']->get('sparrow-sdk');
+
+            $serviceClient = new SparrowServiceClient;
+
+            if (!empty($config['mkey'])) {
+                $serviceClient->setMerchantKey($config['mkey']);
+            }
+
+            return $serviceClient;
+        });
+    }
+
+    /**
      * Get the services provided by this provider
      *
      * @return string[]
@@ -115,8 +115,8 @@ class SDKServiceProvider extends ServiceProvider
     {
         return [
             // 'sparrow-sdk',
-            'sparrow-sdk.service',
-            'sparrow-sdk.merchant'
+            'sparrow-sdk.merchant',
+            'sparrow-sdk.service'
         ];
     }
 }
