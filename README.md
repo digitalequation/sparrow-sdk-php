@@ -24,22 +24,7 @@ In order to avoid the risk of running live transactions and payments while testi
 
 The library is installed via [Composer](http://getcomposer.org/).
 
-#### Method 1 - HTTPS + Bitbucket OAuth credentials:
-
-First, create an `auth.json` file to be used by Composer for reading credentials needed to access private internal repositories:
-
-```json
-{
-    "bitbucket-oauth": {
-        "bitbucket.org": {
-            "consumer-key"   : "MyH864TPXtE9FEs3ZW",
-            "consumer-secret": "cWzXhaB5vduxBss38wwpBWA6UcBxhnGH"
-        }
-    }
-}
-```
-
-Afterwards, add the library as a dependency to your `composer.json` file:
+First, add the library as a dependency to your `composer.json` file:
 
 ```json
 {
@@ -55,27 +40,7 @@ Afterwards, add the library as a dependency to your `composer.json` file:
 }
 ```
 
-#### Method 2 - SSH + credentials agent
-
-If you run an SSH keychain agent, then you can use the Git SSH endpoint for the project repository:
-
-```json
-{
-    "repositories": [
-        {
-            "type": "git",
-            "url" : "git@bitbucket.org:digitalequationteam/sparrow-sdk-php.git"
-        }
-    ],
-    "require": {
-        "digitalequation/sparrow-sdk": "~1.0"
-    }
-}
-```
-
-#### Finally:
-
-Project dependencies must be updated after any config changes:
+Afterwards, update your project dependencies:
 
 ```bash
 $ composer update
