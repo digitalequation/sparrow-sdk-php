@@ -217,3 +217,9 @@ Miscellaneous API documentation (possible future use):
 - [SPARROW-Merchant-Public-Services-Settlement-API-1.pdf](http://sparrowone.com/wp-content/uploads/2017/03/SPARROW-Merchant-Public-Services-Settlement-API-1.pdf)
 - [Sparrow-Client-side-Payment-API-June-2015.pdf](http://sparrowone.com/wp-content/uploads/2016/03/Sparrow-Client-side-Payment-API-June-2015.pdf)
 - [Sparrow-Client-Front-end-API-v3.6.pdf](http://sparrowone.com/wp-content/uploads/2017/05/Sparrow-Client-Front-end-API-v3.6.pdf)
+
+## Licensing
+
+**© Digital Equation 2017-2018**
+
+**Any unauthorized use or distribution of this software is strictly prohibited!**
