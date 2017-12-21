@@ -399,13 +399,13 @@ class SaleHandler extends MethodHandler
     public function simpleFiserv($fields)
     {
         // It appears that Fiserv transactions have the same call format as standard Credit Card transactions
-        return $this->simpleCard($fields)
+        return $this->simpleCard($fields);
     }
 
     public function advancedFiserv($fields, $optAmounts = [])
     {
         // It appears that Fiserv transactions have the same call format as standard Credit Card transactions
-        return $this->advancedCard($fields, [], $optAmounts)
+        return $this->advancedCard($fields, [], $optAmounts);
     }
 
     public function simpleToken($fields)
