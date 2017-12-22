@@ -12,6 +12,7 @@ class AuthHandler extends MethodHandler
      * This action is used to obtain an authentication token for the specified user.
      * @see Merchant Public API pg 7,8
      * @see Merchant Transaction Query API pg 8
+     * @see Merchant Settlement API pg 8
      *
      * @param string $username
      * @param string $password

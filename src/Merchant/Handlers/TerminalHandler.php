@@ -9,6 +9,7 @@ class TerminalHandler extends MethodHandler
     /**
      * This action is used to settle all transactions for the specified account which require settlement.
      * @see Merchant Public API pg 8
+     * @see Merchant Settlement API pg 9
      */
     public function settle()
     {

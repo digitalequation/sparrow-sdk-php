@@ -15,6 +15,7 @@ use SparrowSDK\Merchant\Handlers\TransactionHandler;
  *
  * @link http://sparrowone.com/wp-content/uploads/2016/09/SPARROW-Merchant-Public-API-v3.2.pdf
  * @link http://sparrowone.com/wp-content/uploads/2017/03/SPARROW-Merchant-Public-Services-Transaction-Query-API.pdf
+ * @link http://sparrowone.com/wp-content/uploads/2017/03/SPARROW-Merchant-Public-Services-Settlement-API-1.pdf
  *
  */
 class SparrowMerchantClient

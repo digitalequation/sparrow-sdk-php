@@ -4,6 +4,7 @@ This repository contains a full PHP client implementation for the following APIs
 
 - **SPARROW Merchant Public API** (as `SparrowMerchantClient`)
 - **SPARROW Merchant Transaction Query API** (as `SparrowMerchantClient`)
+- **SPARROW Merchant Settlement API** (as `SparrowMerchantClient`)
 - **SPARROW Services API** (as `SparrowServiceClient`)
 
 ## Pre-requisites
@@ -203,6 +204,7 @@ Following is a list of reference API documentation:
 - **[SPARROW-Services-API-for-Developers-v3.7.pdf](https://sparrowone.com/wp-content/uploads/2017/07/SPARROW-Services-API-for-Developers-v3.7.pdf)**
 - **[SPARROW-Merchant-Public-API-v3.2.pdf](http://sparrowone.com/wp-content/uploads/2016/09/SPARROW-Merchant-Public-API-v3.2.pdf)**
 - **[SPARROW-Merchant-Public-Services-Transaction-Query-API.pdf](http://sparrowone.com/wp-content/uploads/2017/03/SPARROW-Merchant-Public-Services-Transaction-Query-API.pdf)**
+- **[SPARROW-Merchant-Public-Services-Settlement-API-1.pdf](http://sparrowone.com/wp-content/uploads/2017/03/SPARROW-Merchant-Public-Services-Settlement-API-1.pdf)**
 
 Miscellaneous API documentation (possible future use):
 
@@ -214,7 +216,6 @@ Miscellaneous API documentation (possible future use):
 - [SPARROW-Merchant-Public-Services-Split-Funding-API-1.pdf](http://sparrowone.com/wp-content/uploads/2017/03/SPARROW-Merchant-Public-Services-Split-Funding-API-1.pdf)
 - [SPARROW-Redirect-API-v-3.2.pdf](http://sparrowone.com/wp-content/uploads/2016/09/SPARROW-Redirect-API-v-3.2.pdf)
 - [SPARROW-3DS-Integration-v3.4.1.pdf](http://sparrowone.com/wp-content/uploads/2017/06/SPARROW-3DS-Integration-v3.4.1.pdf)
-- [SPARROW-Merchant-Public-Services-Settlement-API-1.pdf](http://sparrowone.com/wp-content/uploads/2017/03/SPARROW-Merchant-Public-Services-Settlement-API-1.pdf)
 - [Sparrow-Client-side-Payment-API-June-2015.pdf](http://sparrowone.com/wp-content/uploads/2016/03/Sparrow-Client-side-Payment-API-June-2015.pdf)
 - [Sparrow-Client-Front-end-API-v3.6.pdf](http://sparrowone.com/wp-content/uploads/2017/05/Sparrow-Client-Front-end-API-v3.6.pdf)
 
