@@ -188,7 +188,7 @@ class APIRequest
             throw new SDKUnexpectedResponseException('Empty object received');
         }
 
-        if (!is_array($responseData) || !array_key_exists('response', $responseData)) {
+        if (!is_array($responseData) || !array_key_exists('textresponse', $responseData)) {
             throw new SDKUnexpectedResponseException($curlData);
         }
 
