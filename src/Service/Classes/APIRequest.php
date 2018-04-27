@@ -198,6 +198,15 @@ class APIRequest
             $responseData['codedescription'] = 'Flagged For Review';
         }
 
+        // Determine if response is an error
+        if (
+            empty($responseData['response']) ||
+            $responseData['response'] != 1 ||
+            strpos($responseData['textresponse'], 'successfully') === false
+        ) {
+            $responseData['error'] = $responseData['textresponse'];
+        }
+
         return $responseData;
     }
 }
